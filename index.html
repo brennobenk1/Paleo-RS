@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paleo-RS — Banco de Dados Paleontológico do Rio Grande do Sul</title>
+<meta name="description" content="Catálogo aberto de ocorrências fossilíferas coletadas no Rio Grande do Sul, com fonte rastreável para cada registro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Piazzolla:ital,wght@0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="envelope">
+    <span class="marca">Paleo<b>·</b>RS</span>
+    <nav aria-label="Seções">
+      <a href="#catalogo" aria-current="page">Catálogo</a>
+      <a href="#limitacoes">Limitações</a>
+      <a href="#citar">Como citar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="abertura envelope">
+    <div class="abertura-grade">
+      <div>
+        <h1>O registro fóssil do Rio Grande do Sul, com a fonte de cada linha à vista</h1>
+        <p>
+          Catálogo aberto de ocorrências <strong>coletadas em território gaúcho</strong>. O critério é
+          procedência, não guarda: um fóssil de Santa Maria depositado em Harvard entra; um fóssil
+          uruguaio guardado em Porto Alegre, não. Todo registro aponta para publicação rastreável, e o
+          selo na ficha diz se a base é artigo revisado por pares, tese ou reportagem.
+        </p>
+        <p>
+          Agora: <strong id="total-registros">—</strong> registros,
+          <strong id="total-sitios">—</strong> sítios,
+          <strong id="total-municipios">—</strong> municípios.
+          Versão <span id="versao">—</span>.
+        </p>
+      </div>
+
+      <div class="coluna">
+        <h2>Coluna estratigráfica do estado</h2>
+        <div id="coluna"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="envelope" id="catalogo">
+    <div class="filtros">
+      <div class="filtros-linha">
+        <label class="campo" style="flex:2 1 260px">
+          <span>buscar</span>
+          <input type="search" id="busca" placeholder="táxon, formação, município, tombo, autor…">
+        </label>
+        <label class="campo"><span>período</span><select id="f-periodo"></select></label>
+        <label class="campo"><span>grupo</span><select id="f-grupo"></select></label>
+        <label class="campo"><span>formação</span><select id="f-formacao"></select></label>
+        <label class="campo"><span>município</span><select id="f-municipio"></select></label>
+        <label class="campo"><span>instituição</span><select id="f-instituicao"></select></label>
+        <button type="button" class="botao secundario" id="limpar">Limpar filtros</button>
+      </div>
+    </div>
+
+    <div class="resumo">
+      <span id="contagem">—</span>
+      <span>
+        <button type="button" class="botao secundario" id="alternar">Ver como tabela</button>
+        <button type="button" class="botao secundario" id="csv">Baixar CSV</button>
+        <button type="button" class="botao secundario" id="json">Baixar JSON</button>
+      </span>
+    </div>
+
+    <div class="grade" id="grade"></div>
+
+    <div class="rolagem-x" id="tabela" hidden>
+      <table>
+        <thead><tr><th>Táxon</th><th>Idade</th><th>Formação</th><th>Município</th><th>Tombo</th><th>Fonte</th></tr></thead>
+        <tbody id="tabela-corpo"></tbody>
+      </table>
+    </div>
+
+    <p id="vazio" hidden>Nenhum registro atende a esses filtros. Limpe um deles e tente de novo.</p>
+    <p style="text-align:center;margin:1.4rem 0"><button type="button" class="botao" id="mais" hidden></button></p>
+  </section>
+
+  <section class="envelope" id="limitacoes">
+    <h2>Limitações</h2>
+    <div class="aviso-viés">
+      <strong>A densidade de registros mede esforço de publicação, não riqueza fossilífera.</strong>
+      Um município aparecer vazio no mapa quase nunca significa que não há fóssil lá — significa que
+      ninguém publicou. A exceção é geológica: município assentado sobre embasamento cristalino ou
+      rocha vulcânica não terá fóssil nenhum, e isso é fim de linha, não convite. Ler este banco como
+      proxy de potencial fossilífero é o erro mais fácil de cometer com ele.
+    </div>
+    <p>
+      Esta é a semente do banco: sete registros do Triássico, todos conferidos na publicação original
+      ou em redescrição de acesso aberto. Permiano, Quaternário e a plataforma continental ainda estão
+      vazios — a coluna estratigráfica acima mostra isso de propósito, em vez de esconder os períodos
+      sem dado.
+    </p>
+  </section>
+
+  <section class="envelope" id="citar">
+    <h2>Como citar</h2>
+    <p>
+      Citar este banco <strong>não substitui</strong> citar a fonte primária de cada registro. O banco
+      é um índice para a literatura, não um substituto dela. Dados sob CC BY 4.0, código sob MIT.
+    </p>
+  </section>
+</main>
+
+<div class="fundo-modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="ficha-titulo">
+  <div class="ficha">
+    <div class="ficha-topo">
+      <h2 id="ficha-titulo"></h2>
+      <button type="button" class="fechar" id="fechar-ficha" aria-label="Fechar ficha">✕</button>
+    </div>
+    <div class="ficha-corpo" id="ficha-corpo"></div>
+  </div>
+</div>
+
+<footer class="rodape">
+  <div class="envelope">
+    Paleo-RS · dados <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br">CC BY 4.0</a> ·
+    código MIT · <a href="https://github.com/brennobenk1/PaleontologiaRS">repositório</a>
+  </div>
+</footer>
+
+<script src="js/dados.js"></script>
+<script defer src="js/app.js"></script>
+</body>
+</html>
