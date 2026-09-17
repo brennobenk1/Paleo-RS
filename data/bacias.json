@@ -1,0 +1,38 @@
+{
+  "versao": "2026.09.1",
+  "data": "2026-09-16",
+  "licenca": "CC BY 4.0",
+  "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
+  "bacias": [
+    {
+      "nome": "Bacia do Paraná — Supersequência Santa Maria",
+      "idade": "Triássico Médio a Superior",
+      "unidades": [
+        "Fm. Sanga do Cabral",
+        "Fm. Santa Maria",
+        "Fm. Caturrita"
+      ],
+      "descricao": "Sucessão continental da região central do RS, base do Geoparque Paleorrota. Reúne o registro mais antigo de dinossauros do Brasil e uma das melhores séries de cinodontes do mundo."
+    },
+    {
+      "nome": "Bacia do Paraná — Supersequência Gondwana I",
+      "idade": "Carbonífero Superior a Permiano",
+      "unidades": [
+        "Grupo Itararé",
+        "Fm. Rio Bonito",
+        "Fm. Irati",
+        "Fm. Rio do Rasto"
+      ],
+      "descricao": "Do glacial ao continental árido. Flora Glossopteris, mesossauros e tetrápodes permianos. Ainda sem registros no banco."
+    },
+    {
+      "nome": "Bacia de Pelotas e planície costeira",
+      "idade": "Neógeno a Quaternário",
+      "unidades": [
+        "Barreiras Múltiplas",
+        "Depósitos da plataforma continental"
+      ],
+      "descricao": "Megafauna pleistocênica do Arroio Touro Passo, Santa Vitória do Palmar e material dragado da plataforma. Ainda sem registros no banco."
+    }
+  ]
+}

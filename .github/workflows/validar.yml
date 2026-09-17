@@ -1,0 +1,49 @@
+name: Validar banco
+
+on:
+  push:
+    paths: ["js/dados.js", "css/estilo.css", "scripts/**", "data/**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Instalar dependências
+        run: |
+          pip install openpyxl
+          npm install
+
+      - name: Validar js/dados.js
+        run: python3 scripts/validar.py
+        working-directory: .
+        env:
+          PYTHONPATH: scripts
+
+      - name: Testar a página num DOM real
+        run: |
+          python3 scripts/gerar-previa.py
+          node scripts/testar.js
+        env:
+          PYTHONPATH: scripts
+
+      - name: Conferir se os artefatos estão em dia
+        run: |
+          python3 scripts/exportar-dados.py
+          python3 scripts/exportar-planilha.py
+          python3 scripts/gerar-previa.py
+          if [ -n "$(git status --porcelain data/ planilha.xlsx previa.html)" ]; then
+            echo "::error::data/ ou planilha.xlsx estão desatualizados em relação a js/dados.js."
+            echo "Rode scripts/exportar-dados.py e scripts/exportar-planilha.py e faça commit."
+            git --no-pager diff --stat data/ planilha.xlsx previa.html
+            exit 1
+          fi
+        env:
+          PYTHONPATH: scripts

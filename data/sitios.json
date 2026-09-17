@@ -1,0 +1,48 @@
+{
+  "versao": "2026.09.1",
+  "data": "2026-09-16",
+  "licenca": "CC BY 4.0",
+  "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
+  "sitios": [
+    {
+      "nome": "Sanga Grande / Sanga de Baixo (Alemoa)",
+      "municipio": "Santa Maria",
+      "lat": -29.6836,
+      "lon": -53.769,
+      "count": 1,
+      "coord_precisao": "aproximada"
+    },
+    {
+      "nome": "Cerro da Alemoa (Waldsanga)",
+      "municipio": "Santa Maria",
+      "lat": -29.6667,
+      "lon": -53.75,
+      "count": 1,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Afloramento Buriol",
+      "municipio": "São João do Polêsine",
+      "lat": -29.6595,
+      "lon": -53.4298,
+      "count": 2,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Sítio Marchezan",
+      "municipio": "São João do Polêsine",
+      "lat": -29.6311,
+      "lon": -53.4506,
+      "count": 1,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Água Negra",
+      "municipio": "São Martinho da Serra",
+      "lat": -29.5353,
+      "lon": -53.8683,
+      "count": 2,
+      "coord_precisao": "regional"
+    }
+  ]
+}

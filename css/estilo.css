@@ -1,0 +1,227 @@
+/* =====================================================================
+   Paleo-RS — css/estilo.css
+
+   PALETA — amostrada diretamente de imgs/logo-vet.svg.
+   A logo já resolve a questão: um medalhão de campo escuro com o crânio
+   em osso dourado, o contorno do estado em verde e o anel partido na
+   tricolor da bandeira. As cores da interface são as cores da marca,
+   lidas pixel a pixel, e não uma segunda paleta tentando combinar.
+
+     --alemoa   #A02B2B  vermelho do anel; também a lama do Membro Alemoa
+     --pampa    #1E6B3C  verde do anel
+     --ouro     #CF9A2E  amarelo do anel
+     --osso     #C9A86A  o cranio em osso, para texto sobre fundo escuro
+     --carvao   #14110D  o campo do medalhao
+
+   O cabecalho usa --carvao para a logo pousar sem borda aparente. O
+   corpo fica claro: catalogo e para ler, nao para contemplar.
+
+   Divisao de trabalho, para a cor nunca ser ambigua:
+     --pampa   estrutura e navegacao
+     --alemoa  acao e enfase (links, botoes, etiqueta de tombo)
+     --ouro    foco e um unico destaque por tela, nunca texto sobre claro
+   Vermelho e verde nunca distinguem duas categorias entre si — isso
+   seria ilegivel para daltonismo deuteranopico, o mais comum.
+
+   As cores dos PERIODOS nao saem daqui: vem da Tabela Cronoestrati-
+   grafica Internacional (ICS), definidas em js/dados.js. Cor de periodo
+   e dado, nao decoracao.
+   ===================================================================== */
+
+:root {
+  /* amostradas de imgs/logo-vet.svg */
+  --alemoa:      #A02B2B;
+  --alemoa-viva: #C4382C;
+  --pampa:       #1E6B3C;
+  --pampa-fundo: #193B22;
+  --ouro:        #CF9A2E;
+  --osso:        #C9A86A;
+  --carvao:      #14110D;
+
+  /* superficies */
+  --campo:   #E7EBE1;
+  --papel:   #FFFFFF;
+  --linha:   #C8D0C2;
+
+  /* texto — contraste conferido por scripts/validar.py */
+  --tinta:   #17231C;
+  --tinta-2: #49554B;
+  --sobre-carvao: #DFE6DA;
+
+  --raio: 3px;
+  --sombra: 0 1px 2px rgba(23, 35, 28, .10), 0 6px 16px rgba(23, 35, 28, .06);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--campo);
+  color: var(--tinta);
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+h1, h2, h3 {
+  font-family: "Piazzolla", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -.01em;
+}
+
+/* Nome científico em itálico carrega informação taxonômica.
+   Nunca use itálico decorativo em outro lugar da interface. */
+.taxon { font-family: "Piazzolla", Georgia, serif; font-style: italic; font-weight: 500; }
+.taxon .autoria { font-style: normal; font-weight: 400; color: var(--tinta-2); font-size: .92em; }
+
+a { color: var(--alemoa); text-underline-offset: .18em; }
+a:hover { color: var(--alemoa-viva); }
+
+:focus-visible {
+  outline: 3px solid var(--ouro);
+  outline-offset: 2px;
+}
+
+.envelope { width: min(1180px, 100% - 2.5rem); margin-inline: auto; }
+
+/* ---------- cabecalho ---------- */
+.topo {
+  background: var(--carvao);
+  color: var(--sobre-carvao);
+  padding: .7rem 0;
+  border-bottom: 3px solid var(--alemoa);
+}
+.topo .envelope { display: flex; align-items: center; gap: .85rem; flex-wrap: wrap; }
+.topo .logo { width: 48px; height: 48px; display: block; flex: none; }
+.marca { font-family: "Piazzolla", Georgia, serif; font-size: 1.28rem; font-weight: 600; color: #FFF; line-height: 1.15; }
+.marca small { display: block; font-family: "Archivo", sans-serif; font-size: .68rem; font-weight: 400; color: var(--osso); letter-spacing: .02em; }
+.topo nav { margin-left: auto; display: flex; gap: 1.1rem; }
+.topo nav a { color: var(--osso); text-decoration: none; font-size: .9rem; }
+.topo nav a:hover { color: #FFF; }
+.topo nav a[aria-current="page"] { color: #FFF; box-shadow: inset 0 -2px 0 var(--ouro); }
+
+/* ---------- abertura: a coluna estratigráfica é o herói ---------- */
+.abertura { padding: 2.6rem 0 2rem; }
+.abertura-grade { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 2.5rem; align-items: start; }
+.abertura h1 { font-size: clamp(1.9rem, 4.2vw, 2.9rem); max-width: 22ch; }
+.abertura p { max-width: 62ch; color: var(--tinta-2); margin: 1rem 0 0; }
+
+.coluna { border: 1px solid var(--linha); background: var(--papel); }
+.coluna h2 { font-size: .95rem; padding: .7rem .9rem; border-bottom: 1px solid var(--linha); }
+.coluna-faixa {
+  display: grid; grid-template-columns: 14px 1fr auto;
+  align-items: center; gap: .7rem;
+  width: 100%; border: 0; background: none; text-align: left;
+  padding: .42rem .9rem; font: inherit; font-size: .88rem; color: var(--tinta);
+  cursor: pointer;
+}
+.coluna-faixa:hover { background: #F3F6F0; }
+.coluna-faixa .bloco { height: 22px; border-radius: 1px; }
+.coluna-faixa .n { color: var(--tinta-2); font-variant-numeric: tabular-nums; font-size: .82rem; }
+.coluna-faixa[data-vazio="sim"] { color: var(--tinta-2); }
+.coluna-faixa[data-vazio="sim"] .bloco { opacity: .32; }
+
+/* ---------- filtros ---------- */
+.filtros { background: var(--papel); border: 1px solid var(--linha); padding: 1rem; margin-bottom: 1.4rem; }
+.filtros-linha { display: flex; gap: .7rem; flex-wrap: wrap; align-items: flex-end; }
+.campo { display: flex; flex-direction: column; gap: .25rem; min-width: 150px; flex: 1 1 150px; }
+.campo > span { font-size: .72rem; color: var(--tinta-2); text-transform: lowercase; letter-spacing: .02em; }
+input[type="search"], select {
+  font: inherit; font-size: .9rem; padding: .45rem .55rem;
+  border: 1px solid var(--linha); border-radius: var(--raio);
+  background: var(--papel); color: var(--tinta); width: 100%;
+}
+.botao {
+  font: inherit; font-size: .85rem; padding: .45rem .8rem; cursor: pointer;
+  border: 1px solid var(--pampa); background: var(--pampa); color: #FFF; border-radius: var(--raio);
+}
+.botao.secundario { background: var(--papel); color: var(--pampa); }
+.botao:hover { background: var(--pampa-fundo); border-color: var(--pampa-fundo); color: #FFF; }
+
+.resumo { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: .9rem; font-size: .9rem; color: var(--tinta-2); }
+
+/* ---------- cartões ---------- */
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1rem; }
+
+.cartao {
+  position: relative;
+  display: grid; grid-template-columns: 7px 1fr;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  box-shadow: var(--sombra);
+  text-align: left; font: inherit; color: inherit;
+  padding: 0; cursor: pointer;
+  /* sem overflow:hidden — a etiqueta de tombo sai de propósito para fora */
+}
+.cartao:hover { border-color: var(--pampa); }
+.cartao .faixa-periodo { border-radius: 2px 0 0 2px; }
+.cartao-corpo { padding: 1rem 1rem 1.05rem; min-width: 0; }
+.cartao .taxon { display: block; font-size: 1.06rem; margin-bottom: .45rem; }
+.cartao dl { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .55rem .9rem; }
+.cartao dt { font-size: .68rem; color: var(--tinta-2); font-variant: small-caps; letter-spacing: .04em; }
+.cartao dd { margin: 0; font-size: .85rem; }
+
+.etiqueta-tombo {
+  position: absolute; top: -9px; right: 12px;
+  background: var(--alemoa); color: #FFF;
+  font-size: .68rem; padding: .16rem .5rem; border-radius: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.selo {
+  display: inline-block; font-size: .68rem; padding: .1rem .4rem;
+  border: 1px solid currentColor; border-radius: 2px; margin-top: .7rem;
+}
+.selo[data-fonte="Artigo em periódico"]      { color: #2C5D82; }
+.selo[data-fonte="Capítulo de sítio (SIGEP)"]{ color: #6A4E9B; }
+.selo[data-fonte="Tese ou dissertação"]      { color: #1E6B3C; }
+.selo[data-fonte="Anais ou resumo de evento"]{ color: #7A5A12; }
+.selo[data-fonte="Divulgação ou imprensa"]   { color: #A02B2B; }
+.selo[data-fonte="Citação em revisão"]       { color: #49554B; }
+
+.precisao { font-size: .72rem; color: var(--tinta-2); }
+.precisao[data-p="regional"]::before,
+.precisao[data-p="aproximada"]::before { content: "◔ "; color: var(--ouro); }
+.precisao[data-p="publicada"]::before { content: "● "; color: var(--pampa); }
+
+/* ---------- tabela ---------- */
+table { width: 100%; border-collapse: collapse; background: var(--papel); font-size: .86rem; }
+th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--linha); vertical-align: top; }
+th { background: #F1F4EE; font-size: .72rem; font-variant: small-caps; letter-spacing: .04em; }
+.rolagem-x { overflow-x: auto; border: 1px solid var(--linha); }
+
+/* ---------- ficha (modal) ---------- */
+.fundo-modal { position: fixed; inset: 0; background: rgba(20, 17, 13, .62); display: grid; place-items: center; padding: 1.2rem; z-index: 40; }
+.fundo-modal[hidden] { display: none; }
+.ficha { background: var(--papel); max-width: 720px; width: 100%; max-height: 86vh; overflow-y: auto; border-top: 5px solid var(--alemoa); box-shadow: 0 20px 60px rgba(20, 17, 13, .45); }
+.ficha-topo { display: flex; gap: 1rem; align-items: flex-start; padding: 1.3rem 1.4rem .8rem; }
+.ficha-topo h2 { font-size: 1.35rem; }
+.ficha-corpo { padding: 0 1.4rem 1.4rem; }
+.ficha-corpo dl { display: grid; grid-template-columns: 170px 1fr; gap: .5rem 1rem; margin: 1rem 0; }
+.ficha-corpo dt { font-size: .72rem; color: var(--tinta-2); font-variant: small-caps; letter-spacing: .04em; padding-top: .15rem; }
+.ficha-corpo dd { margin: 0; font-size: .92rem; }
+.ficha-acoes { display: flex; gap: .5rem; flex-wrap: wrap; padding-top: .9rem; border-top: 1px solid var(--linha); }
+.fechar { margin-left: auto; background: none; border: 1px solid var(--linha); border-radius: var(--raio); font: inherit; font-size: 1.1rem; line-height: 1; padding: .3rem .55rem; cursor: pointer; color: var(--tinta-2); }
+
+.aviso-viés {
+  background: #F4F0E2; border-left: 4px solid var(--ouro);
+  padding: .9rem 1rem; font-size: .87rem; color: var(--tinta);
+  margin: 1.6rem 0;
+}
+
+.rodape { background: var(--carvao); color: var(--sobre-carvao); margin-top: 3rem; padding: 2rem 0; font-size: .85rem; }
+.rodape a { color: var(--osso); }
+
+@media (max-width: 820px) {
+  .abertura-grade { grid-template-columns: 1fr; }
+  .ficha-corpo dl { grid-template-columns: 1fr; gap: .15rem; }
+  .ficha-corpo dd { margin-bottom: .6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

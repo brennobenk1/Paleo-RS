@@ -1,8 +1,26 @@
-#[Paleo-RS — Banco de Dados Paleontológico do Rio Grande do Sul](https://brennobenk1.github.io/Paleo-RS/)
+# Paleo-RS — Banco de Dados Paleontológico do Rio Grande do Sul
 
 Catálogo aberto de ocorrências fossilíferas **coletadas no Rio Grande do Sul**.
 Aplicação estática: HTML5, CSS3 e JavaScript ES6+, sem framework, sem build,
 sem servidor. Abre direto do disco ou no GitHub Pages.
+
+## Arquivos
+
+```
+index.html            página do catálogo
+css/estilo.css        tokens e estilo; paleta amostrada da logo
+js/dados.js           FONTE ÚNICA DE DADOS — o único arquivo editável à mão
+js/app.js             só código: filtros, ficha, permalink, exportações
+imgs/logo-vet.svg     marca; origem das cores da interface
+scripts/ler_dados.py  ponte que lê dados.js via Node
+scripts/validar.py    10 regras de validação
+scripts/exportar-dados.py     → data/*.json
+scripts/exportar-planilha.py  → planilha.xlsx
+scripts/gerar-previa.py       → previa.html (arquivo único, sem servidor)
+data/*.json           ARTEFATO GERADO
+planilha.xlsx         ARTEFATO GERADO
+previa.html           ARTEFATO GERADO
+```
 
 ## Escopo
 

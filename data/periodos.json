@@ -1,0 +1,126 @@
+{
+  "versao": "2026.09.1",
+  "data": "2026-09-16",
+  "licenca": "CC BY 4.0",
+  "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
+  "periodos": [
+    {
+      "chave": "devoniano",
+      "nome": "Devoniano",
+      "ordem": 1,
+      "inicio_ma": 419.2,
+      "fim_ma": 358.9,
+      "cor": "#CB8C37",
+      "total_registros": 0
+    },
+    {
+      "chave": "carbonifero",
+      "nome": "Carbonífero",
+      "ordem": 2,
+      "inicio_ma": 358.9,
+      "fim_ma": 298.9,
+      "cor": "#67A599",
+      "total_registros": 0
+    },
+    {
+      "chave": "permiano",
+      "nome": "Permiano",
+      "ordem": 3,
+      "inicio_ma": 298.9,
+      "fim_ma": 251.9,
+      "cor": "#F04028",
+      "total_registros": 0
+    },
+    {
+      "chave": "triassico",
+      "nome": "Triássico",
+      "ordem": 4,
+      "inicio_ma": 251.9,
+      "fim_ma": 201.4,
+      "cor": "#812B92",
+      "total_registros": 7
+    },
+    {
+      "chave": "jurassico",
+      "nome": "Jurássico",
+      "ordem": 5,
+      "inicio_ma": 201.4,
+      "fim_ma": 145,
+      "cor": "#34B2C9",
+      "total_registros": 0
+    },
+    {
+      "chave": "cretaceo",
+      "nome": "Cretáceo",
+      "ordem": 6,
+      "inicio_ma": 145,
+      "fim_ma": 66,
+      "cor": "#7FC64E",
+      "total_registros": 0
+    },
+    {
+      "chave": "paleogeno",
+      "nome": "Paleógeno",
+      "ordem": 7,
+      "inicio_ma": 66,
+      "fim_ma": 23,
+      "cor": "#FD9A52",
+      "total_registros": 0
+    },
+    {
+      "chave": "neogeno",
+      "nome": "Neógeno",
+      "ordem": 8,
+      "inicio_ma": 23,
+      "fim_ma": 2.58,
+      "cor": "#FFE619",
+      "total_registros": 0
+    },
+    {
+      "chave": "quaternario",
+      "nome": "Quaternário",
+      "ordem": 9,
+      "inicio_ma": 2.58,
+      "fim_ma": 0,
+      "cor": "#F9F97F",
+      "total_registros": 0
+    }
+  ],
+  "biozonas": [
+    {
+      "chave": "az_sanga_cabral",
+      "nome": "Fauna da Fm. Sanga do Cabral",
+      "ordem": 1,
+      "idade": "Triássico Inferior (Induano–Olenekiano)",
+      "total_registros": 0
+    },
+    {
+      "chave": "az_dinodontosaurus",
+      "nome": "Zona de Assembleia de Dinodontosaurus",
+      "ordem": 2,
+      "idade": "Triássico Médio (Ladiniano)",
+      "total_registros": 0
+    },
+    {
+      "chave": "az_santacruzodon",
+      "nome": "Zona de Assembleia de Santacruzodon",
+      "ordem": 3,
+      "idade": "Triássico Médio–Superior (Ladiniano–Carniano)",
+      "total_registros": 0
+    },
+    {
+      "chave": "az_hyperodapedon",
+      "nome": "Zona de Assembleia de Hyperodapedon",
+      "ordem": 4,
+      "idade": "Triássico Superior (Carniano)",
+      "total_registros": 5
+    },
+    {
+      "chave": "az_riograndia",
+      "nome": "Zona de Assembleia de Riograndia",
+      "ordem": 5,
+      "idade": "Triássico Superior (Noriano)",
+      "total_registros": 2
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "versao": "2026.09.1",
+  "data": "2026-09-16",
+  "licenca": "CC BY 4.0",
+  "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
+  "instituicoes": [
+    {
+      "sigla": "CAPPA/UFSM",
+      "nome": "Centro de Apoio à Pesquisa Paleontológica da Quarta Colônia",
+      "cidade": "São João do Polêsine, RS",
+      "site": "https://www.ufsm.br/orgaos-suplementares/cappa",
+      "acervo": "Vertebrados do Triássico da Quarta Colônia; coleção de referência da Sequência Candelária."
+    },
+    {
+      "sigla": "UFSM",
+      "nome": "Universidade Federal de Santa Maria — Laboratório de Estratigrafia e Paleobiologia",
+      "cidade": "Santa Maria, RS",
+      "site": "https://www.ufsm.br",
+      "acervo": "Vertebrados triássicos das formações Santa Maria e Caturrita."
+    },
+    {
+      "sigla": "MCT-PUCRS",
+      "nome": "Museu de Ciências e Tecnologia da PUCRS",
+      "cidade": "Porto Alegre, RS",
+      "site": "https://www.pucrs.br/mct/",
+      "acervo": "Uma das maiores coleções de vertebrados fósseis do país; forte em Triássico e Quaternário."
+    },
+    {
+      "sigla": "ULBRA",
+      "nome": "Museu de Ciências Naturais da Universidade Luterana do Brasil",
+      "cidade": "Canoas, RS",
+      "site": "https://www.ulbra.br",
+      "acervo": "Vertebrados do Triássico do RS (série ULBRA-PVT)."
+    },
+    {
+      "sigla": "MCZ",
+      "nome": "Museum of Comparative Zoology, Harvard University",
+      "cidade": "Cambridge, Massachusetts (EUA)",
+      "site": "https://mcz.harvard.edu",
+      "acervo": "Guarda o holótipo de Staurikosaurus pricei, coletado no RS em 1936."
+    },
+    {
+      "sigla": "AMNH",
+      "nome": "American Museum of Natural History",
+      "cidade": "Nova York (EUA)",
+      "site": "https://www.amnh.org",
+      "acervo": "Instituição de E.H. Colbert, autor da descrição de Staurikosaurus pricei."
+    },
+    {
+      "sigla": "MN/UFRJ",
+      "nome": "Museu Nacional, Universidade Federal do Rio de Janeiro",
+      "cidade": "Rio de Janeiro, RJ",
+      "site": "https://www.museunacional.ufrj.br",
+      "acervo": "Moldes e material comparativo; coautoria em descrições de material gaúcho."
+    },
+    {
+      "sigla": "USP-RP",
+      "nome": "Laboratório de Paleontologia, FFCLRP, Universidade de São Paulo",
+      "cidade": "Ribeirão Preto, SP",
+      "site": "https://www.ffclrp.usp.br",
+      "acervo": "Grupo de pesquisa em dinossauros basais do Triássico sul-brasileiro."
+    },
+    {
+      "sigla": "PUCRS",
+      "nome": "Pontifícia Universidade Católica do Rio Grande do Sul",
+      "cidade": "Porto Alegre, RS",
+      "site": "https://www.pucrs.br",
+      "acervo": "Laboratório de Sedimentologia e Petrologia; microtomografia de fósseis."
+    }
+  ]
+}

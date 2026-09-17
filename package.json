@@ -1,0 +1,14 @@
+{
+  "name": "paleo-rs",
+  "version": "2026.9.1",
+  "private": true,
+  "description": "Banco de Dados Paleontológico do Rio Grande do Sul",
+  "license": "MIT",
+  "scripts": {
+    "build": "python3 scripts/exportar-dados.py && python3 scripts/exportar-planilha.py && python3 scripts/gerar-previa.py",
+    "validar": "python3 scripts/validar.py",
+    "testar": "node scripts/testar.js",
+    "tudo": "npm run build && npm run validar && npm run testar"
+  },
+  "devDependencies": { "jsdom": "^24.0.0" }
+}
