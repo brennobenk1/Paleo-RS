@@ -2,6 +2,38 @@
 
 Versionamento `ANO.MÊS.N`.
 
+## 2026.09.2 — 2026-09-17
+
+Reestruturação em abas e primeira ampliação do catálogo.
+
+### Estrutura
+- Seis abas no padrão do Paleo-SC: Início, Catálogo, Mapa, Períodos Geológicos,
+  Instituições, Sobre & Fontes. Roteamento por hash, então cada aba tem link próprio.
+- **Mapa** com a malha dos 496 municípios do RS, zoom, deslocamento, municípios com
+  registro destacados, painel lateral por sítio e por município. Sítios coincidentes
+  distribuídos em anel com haste até o ponto real — nenhum fica coberto por vizinho.
+- **Períodos** em acordeão, com barra proporcional e as zonas de assembleia do
+  Triássico como subnível.
+- **Instituições** com ficha e contagem de registros que citam cada uma.
+- **Como citar** em ABNT, APA e BibTeX, com autoria de Brenno Alef Benk, versão do
+  banco e data de acesso preenchida automaticamente.
+- Bloco de viés amostral retirado da página a pedido do compilador.
+
+### Dados — 7 para 15 registros
+- Permiano estreia com a fauna da Fazenda Boqueirão, São Gabriel (Fm. Rio do Rasto):
+  *Pampaphoneus biccai*, *Rastodon procurvidens* e *Konzhukovia sangabrielensis*.
+- Zona de Assembleia de Riograndia ampliada: *Riograndia guaibensis* (Candelária),
+  *Brasilodon quadrangularis*, *Guaibasaurus candelariensis*, *Soturnia caliodon* e
+  *Clevosaurus brasiliensis* (Faxinal do Soturno).
+- 8 sítios em 6 municípios; 12 instituições.
+- Quatro registros entram marcados como `Citação em revisão`, com a ressalva escrita
+  na ficha: existem na literatura, mas tombo, guarda ou coordenada seguem em aberto.
+
+### Validação
+- Regra 11: ponto-em-polígono do município declarado, substituindo o envelope
+  retangular. Os 8 sítios passam.
+- Regra de DOI deixou de cobrar DOI de registro apoiado só em revisão.
+
 ## 2026.09.1 — 2026-09-16
 
 Primeira versão. Esqueleto completo e semente de dados.

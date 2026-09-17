@@ -3,61 +3,109 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Paleo-RS — Banco de Dados Paleontológico do Rio Grande do Sul</title>
-<meta name="description" content="Catálogo aberto de ocorrências fossilíferas coletadas no Rio Grande do Sul, com fonte rastreável para cada registro.">
+<title>Paleo-RS · Banco de Dados Paleontológico do Rio Grande do Sul</title>
+<meta name="description" content="Catálogo, mapa interativo e consulta científica do registro fossilífero do Rio Grande do Sul — do Permiano ao Quaternário.">
+<meta property="og:title" content="Paleo-RS · Banco de Dados Paleontológico do Rio Grande do Sul">
+<meta property="og:description" content="Catálogo pesquisável do registro fossilífero gaúcho, com mapa de sítios e linha do tempo geológica.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="imgs/logo-vet.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Piazzolla:ital,wght@0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="icon" href="imgs/logo-vet.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-<header class="topo">
+<header class="topo" id="topo">
   <div class="envelope">
-    <img class="logo" src="imgs/logo-vet.svg" alt="" width="48" height="48">
-    <span class="marca">Paleo-RS<small>Banco de Dados Paleontológico do Rio Grande do Sul</small></span>
-    <nav aria-label="Seções">
-      <a href="#catalogo" aria-current="page">Catálogo</a>
-      <a href="#limitacoes">Limitações</a>
-      <a href="#citar">Como citar</a>
+    <a class="marca-bloco" href="#/inicio">
+      <img class="logo" src="imgs/logo-vet.svg" alt="Brasão do Paleo-RS: crânio fóssil sobre o contorno do Rio Grande do Sul" width="52" height="52">
+      <span class="marca">Paleo-RS<small>Banco de Dados Paleontológico · Rio Grande do Sul</small></span>
+    </a>
+    <nav id="abas" aria-label="Seções do banco">
+      <a href="#/inicio" data-aba="inicio">Início</a>
+      <a href="#/catalogo" data-aba="catalogo">Catálogo</a>
+      <a href="#/mapa" data-aba="mapa">Mapa</a>
+      <a href="#/periodos" data-aba="periodos">Períodos Geológicos</a>
+      <a href="#/instituicoes" data-aba="instituicoes">Instituições</a>
+      <a href="#/sobre" data-aba="sobre">Sobre &amp; Fontes</a>
     </nav>
   </div>
 </header>
 
-<main>
-  <section class="abertura envelope">
-    <div class="abertura-grade">
+<main id="conteudo">
+
+<!-- ============================ INICIO ============================ -->
+<section class="painel" id="p-inicio">
+  <div class="heroi">
+    <div class="envelope heroi-grade">
       <div>
-        <h1>O registro fóssil do Rio Grande do Sul, com a fonte de cada linha à vista</h1>
-        <p>
-          Catálogo aberto de ocorrências <strong>coletadas em território gaúcho</strong>. O critério é
-          procedência, não guarda: um fóssil de Santa Maria depositado em Harvard entra; um fóssil
-          uruguaio guardado em Porto Alegre, não. Todo registro aponta para publicação rastreável, e o
-          selo na ficha diz se a base é artigo revisado por pares, tese ou reportagem.
+        <p class="sobrancelha">Registro fossilífero gaúcho · Permiano ao Holoceno</p>
+        <h1>Duzentos e sessenta milhões de anos de vida, guardados em rochas gaúchas.</h1>
+        <p class="conduz">
+          Um catálogo de consulta científica reunindo táxons, formações, sítios de coleta e
+          instituições de guarda do acervo paleontológico do Rio Grande do Sul — do predador
+          permiano do Pampa aos primeiros dinossauros do mundo, na Quarta Colônia.
         </p>
-        <p>
-          Agora: <strong id="total-registros">—</strong> registros,
-          <strong id="total-sitios">—</strong> sítios,
-          <strong id="total-municipios">—</strong> municípios.
-          Versão <span id="versao">—</span>.
+        <p class="acoes-heroi">
+          <a class="botao" href="#/catalogo">Explorar o catálogo</a>
+          <a class="botao claro" href="#/mapa">Ver mapa de sítios</a>
         </p>
       </div>
-
-      <div class="coluna">
-        <h2>Coluna estratigráfica do estado</h2>
-        <div id="coluna"></div>
+      <div class="placar">
+        <div><b id="h-registros">—</b><span>registros</span></div>
+        <div><b id="h-sitios">—</b><span>sítios</span></div>
+        <div><b id="h-municipios">—</b><span>municípios</span></div>
+        <div><b id="h-instituicoes">—</b><span>instituições</span></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="envelope" id="catalogo">
+  <div class="envelope">
+    <p class="sobrancelha">Acervo</p>
+    <h2>O que este banco reúne</h2>
+    <div class="cartelas">
+      <a class="cartela" href="#/catalogo">
+        <h3>Catálogo pesquisável</h3>
+        <p><b id="c-registros">—</b> registros compilados da literatura científica publicada — periódicos, teses e anais — com filtros por período, grupo, formação, município e instituição de guarda.</p>
+        <span class="seta">Abrir catálogo</span>
+      </a>
+      <a class="cartela" href="#/mapa">
+        <h3>Mapa interativo</h3>
+        <p>Sítios de coleta sobre a malha dos <b id="c-malha">—</b> municípios do estado, com zoom, deslocamento e painel por município.</p>
+        <span class="seta">Ver mapa</span>
+      </a>
+      <a class="cartela" href="#/periodos">
+        <h3>Linha do tempo geológica</h3>
+        <p>Do Devoniano ao Quaternário: cada período abre para revelar unidades, táxons e, no Triássico, as zonas de assembleia do Geoparque Paleorrota.</p>
+        <span class="seta">Percorrer o tempo</span>
+      </a>
+      <a class="cartela" href="#/instituicoes">
+        <h3>Rede institucional</h3>
+        <p><b id="c-instituicoes">—</b> universidades, museus e centros de pesquisa que descrevem, custodiam ou estudam o material — com sede e perfil de acervo.</p>
+        <span class="seta">Ver instituições</span>
+      </a>
+    </div>
+
+    <p class="sobrancelha">No tempo</p>
+    <h2>Cobertura por período geológico</h2>
+    <div class="coluna" id="coluna-inicio"></div>
+  </div>
+</section>
+
+<!-- =========================== CATALOGO =========================== -->
+<section class="painel" id="p-catalogo" hidden>
+  <div class="envelope">
+    <p class="sobrancelha">Catálogo</p>
+    <h2>Consulta ao banco de dados — Rio Grande do Sul</h2>
+    <p class="conduz">Filtre por período, grupo, formação, município ou instituição. Clique num registro para abrir a ficha completa com referências e fontes de verificação.</p>
+
     <div class="filtros">
       <div class="filtros-linha">
-        <label class="campo" style="flex:2 1 260px">
-          <span>buscar</span>
-          <input type="search" id="busca" placeholder="táxon, formação, município, tombo, autor…">
-        </label>
+        <label class="campo" style="flex:2 1 260px"><span>buscar</span>
+          <input type="search" id="busca" placeholder="táxon, formação, município, tombo, autor…"></label>
         <label class="campo"><span>período</span><select id="f-periodo"></select></label>
         <label class="campo"><span>grupo</span><select id="f-grupo"></select></label>
         <label class="campo"><span>formação</span><select id="f-formacao"></select></label>
@@ -69,7 +117,7 @@
 
     <div class="resumo">
       <span id="contagem">—</span>
-      <span>
+      <span class="grupo-botoes">
         <button type="button" class="botao secundario" id="alternar">Ver como tabela</button>
         <button type="button" class="botao secundario" id="csv">Baixar CSV</button>
         <button type="button" class="botao secundario" id="json">Baixar JSON</button>
@@ -77,42 +125,101 @@
     </div>
 
     <div class="grade" id="grade"></div>
-
     <div class="rolagem-x" id="tabela" hidden>
       <table>
         <thead><tr><th>Táxon</th><th>Idade</th><th>Formação</th><th>Município</th><th>Tombo</th><th>Fonte</th></tr></thead>
         <tbody id="tabela-corpo"></tbody>
       </table>
     </div>
+    <p id="vazio" hidden>Nenhum registro corresponde aos filtros selecionados. Tente ampliar os critérios.</p>
+    <p class="centro"><button type="button" class="botao" id="mais" hidden></button></p>
+  </div>
+</section>
 
-    <p id="vazio" hidden>Nenhum registro atende a esses filtros. Limpe um deles e tente de novo.</p>
-    <p style="text-align:center;margin:1.4rem 0"><button type="button" class="botao" id="mais" hidden></button></p>
-  </section>
+<!-- ============================= MAPA ============================= -->
+<section class="painel" id="p-mapa" hidden>
+  <div class="envelope">
+    <p class="sobrancelha">Mapa</p>
+    <h2>Sítios de coleta e bacias fossilíferas — Rio Grande do Sul</h2>
+    <p class="conduz">Os círculos marcam localidades de coleta; o tamanho indica quantos registros cada uma tem. Municípios com registro aparecem destacados. Arraste para mover, use a roda ou os botões para aproximar.</p>
 
-  <section class="envelope" id="limitacoes">
-    <h2>Limitações</h2>
-    <div class="aviso-viés">
-      <strong>A densidade de registros mede esforço de publicação, não riqueza fossilífera.</strong>
-      Um município aparecer vazio no mapa quase nunca significa que não há fóssil lá — significa que
-      ninguém publicou. A exceção é geológica: município assentado sobre embasamento cristalino ou
-      rocha vulcânica não terá fóssil nenhum, e isso é fim de linha, não convite. Ler este banco como
-      proxy de potencial fossilífero é o erro mais fácil de cometer com ele.
+    <div class="mapa-grade">
+      <div class="mapa-caixa">
+        <div class="mapa-controles" id="mapa-controles">
+          <button type="button" class="botao-mapa" id="zoom-mais" aria-label="Aproximar">+</button>
+          <button type="button" class="botao-mapa" id="zoom-menos" aria-label="Afastar">−</button>
+          <button type="button" class="botao-mapa" id="zoom-reset" aria-label="Enquadrar o estado">◎</button>
+        </div>
+        <svg id="mapa" role="group" aria-label="Mapa dos sítios fossilíferos do Rio Grande do Sul"></svg>
+        <p class="dica-mapa">Arraste para mover · role para aproximar · clique num sítio ou município</p>
+      </div>
+      <aside class="mapa-lateral">
+        <h3>Sítio selecionado</h3>
+        <div id="sitio-detalhe"><p class="vazio-lateral">Toque num ponto do mapa para ver os detalhes do sítio.</p></div>
+        <h3>Precisão das coordenadas</h3>
+        <ul class="legenda">
+          <li><span class="p-pt" data-p="publicada"></span> publicada na fonte</li>
+          <li><span class="p-pt" data-p="aproximada"></span> localidade identificada, coordenada estimada</li>
+          <li><span class="p-pt" data-p="regional"></span> só o município é conhecido</li>
+        </ul>
+        <h3>Bacias e unidades</h3>
+        <div id="bacias-lista"></div>
+      </aside>
     </div>
-    <p>
-      Esta é a semente do banco: sete registros do Triássico, todos conferidos na publicação original
-      ou em redescrição de acesso aberto. Permiano, Quaternário e a plataforma continental ainda estão
-      vazios — a coluna estratigráfica acima mostra isso de propósito, em vez de esconder os períodos
-      sem dado.
-    </p>
-  </section>
+  </div>
+</section>
 
-  <section class="envelope" id="citar">
-    <h2>Como citar</h2>
-    <p>
-      Citar este banco <strong>não substitui</strong> citar a fonte primária de cada registro. O banco
-      é um índice para a literatura, não um substituto dela. Dados sob CC BY 4.0, código sob MIT.
-    </p>
-  </section>
+<!-- ============================ PERIODOS =========================== -->
+<section class="painel" id="p-periodos" hidden>
+  <div class="envelope">
+    <p class="sobrancelha">Tempo</p>
+    <h2>Períodos geológicos — Rio Grande do Sul</h2>
+    <p class="conduz">Da base ao topo da coluna estratigráfica gaúcha. Abra cada período para ver as unidades, os táxons documentados e a contagem de registros. No Triássico, as zonas de assembleia dividem o intervalo com resolução muito maior que a do período.</p>
+    <div id="acordeao"></div>
+  </div>
+</section>
+
+<!-- ========================== INSTITUICOES ========================= -->
+<section class="painel" id="p-instituicoes" hidden>
+  <div class="envelope">
+    <p class="sobrancelha">Rede</p>
+    <h2>Instituições</h2>
+    <p class="conduz">Universidades, museus e centros de pesquisa citados como guarda, descrição ou estudo do material catalogado. O número ao lado de cada uma é quantos registros do banco a citam.</p>
+    <div class="grade-inst" id="lista-inst"></div>
+  </div>
+</section>
+
+<!-- ============================= SOBRE ============================= -->
+<section class="painel" id="p-sobre" hidden>
+  <div class="envelope prosa">
+    <p class="sobrancelha">Sobre</p>
+    <h2>Sobre o projeto &amp; metodologia</h2>
+
+    <h3>Escopo</h3>
+    <p>Este banco reúne <strong>apenas material coletado em território do Rio Grande do Sul</strong>. O critério é de procedência, não de guarda: um fóssil coletado em Santa Maria e depositado em Harvard continua elegível; um fóssil catarinense ou uruguaio guardado em Porto Alegre não entra.</p>
+
+    <h3>Origem dos dados</h3>
+    <p>O catálogo é compilado a partir da literatura paleontológica publicada sobre o estado — periódicos científicos indexados, teses e dissertações, anais de congresso e capítulos do SIGEP. As instituições citadas com maior frequência são a UFRGS, a UFSM/CAPPA, o MCT-PUCRS, a UNIPAMPA e o MCN.</p>
+
+    <h3>Como ler os campos</h3>
+    <dl class="glossario">
+      <dt>Tipo de fonte</dt><dd>Selo colorido em cada ficha. Referência completa não basta: o leitor precisa saber se o registro se apoia em artigo revisado por pares, tese, anais, capítulo do SIGEP, reportagem, ou apenas numa citação dentro de uma revisão.</dd>
+      <dt>Precisão da coordenada</dt><dd><b>Publicada</b> quando a própria fonte informa a coordenada; <b>aproximada</b> quando a localidade é identificável mas a coordenada foi estimada; <b>regional</b> quando só o município é conhecido e o ponto cai na sede municipal. Sem essa distinção, uma sede municipal e um afloramento medido por GPS ficariam indistinguíveis no mapa.</dd>
+      <dt>Registro frágil</dt><dd>Registros marcados como <i>Citação em revisão</i> não foram conferidos na publicação original. Entram porque existem na literatura, mas com tombo, guarda ou coordenada em aberto. Abra a descrição original antes de citá-los.</dd>
+    </dl>
+
+    <h3>Limitações</h3>
+    <ul>
+      <li><strong>Cobertura:</strong> só entram registros com publicação rastreável (ISBN, ISSN, DOI, repositório institucional). O banco não busca catalogar as coleções de cada instituição.</li>
+      <li><strong>Tombamento:</strong> nem toda publicação identifica o tombo ou a instituição de depósito. Onde a fonte silencia, a ficha diz "Não informado na fonte consultada" em vez de preencher por dedução.</li>
+      <li><strong>Atualização:</strong> dados compilados a partir de 2026. O banco está em construção — Quaternário, Fm. Rio Bonito, Fm. Irati e a plataforma continental ainda não têm registros.</li>
+    </ul>
+
+    <h3>Licenciamento</h3>
+    <p>Dados sob <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br">CC BY 4.0</a>, código sob MIT. Material de terceiros fora do escopo. <strong>Citar este banco não substitui citar a fonte primária de cada registro</strong> — o banco é um índice para a literatura, não um substituto dela.</p>
+  </div>
+</section>
+
 </main>
 
 <div class="fundo-modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="ficha-titulo">
@@ -125,13 +232,48 @@
   </div>
 </div>
 
+<div class="fundo-modal" id="modal-citar" hidden role="dialog" aria-modal="true" aria-labelledby="citar-titulo">
+  <div class="ficha">
+    <div class="ficha-topo">
+      <h2 id="citar-titulo">Como citar</h2>
+      <button type="button" class="fechar" id="fechar-citar" aria-label="Fechar">✕</button>
+    </div>
+    <div class="ficha-corpo">
+      <div class="guias" role="tablist" aria-label="Norma de citação">
+        <button type="button" role="tab" class="guia" data-norma="abnt" aria-selected="true">ABNT</button>
+        <button type="button" role="tab" class="guia" data-norma="apa" aria-selected="false">APA</button>
+        <button type="button" role="tab" class="guia" data-norma="bibtex" aria-selected="false">BibTeX</button>
+      </div>
+      <pre id="citacao-texto" class="citacao"></pre>
+      <div class="ficha-acoes">
+        <button type="button" class="botao" id="copiar-citacao">Copiar</button>
+      </div>
+      <p class="nota">A data de acesso é preenchida automaticamente. Como o banco é atualizado, cite também a versão — ela identifica exatamente o estado dos dados que você consultou.</p>
+    </div>
+  </div>
+</div>
+
 <footer class="rodape">
-  <div class="envelope">
-    Paleo-RS · dados <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br">CC BY 4.0</a> ·
-    código MIT · <a href="https://github.com/brennobenk1/Paleo-RS">repositório</a>
+  <div class="envelope rodape-grade">
+    <div>
+      <img class="logo-rodape" src="imgs/logo-vet.svg" alt="" width="40" height="40">
+      <p>Paleo-RS — projeto independente de catalogação paleontológica.<br>
+      Dados compilados de fontes públicas; consulte sempre as referências originais e as instituições de guarda para informação de tombamento oficial.</p>
+    </div>
+    <div>
+      <p>Compilado por <strong>Brenno Alef Benk</strong><br>
+      Versão <strong id="rodape-versao">—</strong> · <span id="rodape-registros">—</span> registros</p>
+      <p class="links-rodape">
+        <button type="button" class="link-botao" id="abrir-citar">Como citar</button>
+        <a href="CHANGELOG.md">Histórico de alterações</a>
+        <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br">Dados sob CC BY 4.0</a>
+        <a href="https://github.com/brennobenk1/Paleo-RS/issues">Encontrou um erro? Reporte</a>
+      </p>
+    </div>
   </div>
 </footer>
 
+<script src="js/malha.js"></script>
 <script src="js/dados.js"></script>
 <script defer src="js/app.js"></script>
 </body>

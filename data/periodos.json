@@ -1,6 +1,6 @@
 {
-  "versao": "2026.09.1",
-  "data": "2026-09-16",
+  "versao": "2026.09.2",
+  "data": "2026-09-17",
   "licenca": "CC BY 4.0",
   "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
   "periodos": [
@@ -29,7 +29,7 @@
       "inicio_ma": 298.9,
       "fim_ma": 251.9,
       "cor": "#F04028",
-      "total_registros": 0
+      "total_registros": 3
     },
     {
       "chave": "triassico",
@@ -38,7 +38,7 @@
       "inicio_ma": 251.9,
       "fim_ma": 201.4,
       "cor": "#812B92",
-      "total_registros": 7
+      "total_registros": 12
     },
     {
       "chave": "jurassico",
@@ -120,7 +120,7 @@
       "nome": "Zona de Assembleia de Riograndia",
       "ordem": 5,
       "idade": "Triássico Superior (Noriano)",
-      "total_registros": 2
+      "total_registros": 7
     }
   ]
 }

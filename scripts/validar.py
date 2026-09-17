@@ -159,7 +159,11 @@ def valida_campos(d):
         doi = r.get("doi", "")
         if doi and not re.match(r"^10\.\d{4,9}/\S+$", doi):
             erro(6, f"registro {r['id']}: DOI '{doi}' não tem forma de DOI")
-        if not doi and "Não informado" not in r.get("observacoes", "") \
+        # Registro apoiado só em revisão já se declara frágil pelo tipo_fonte;
+        # cobrar DOI dele seria ruído. Para os demais, a ausência tem de
+        # estar explicada por escrito.
+        if not doi and r.get("tipo_fonte") != "Citação em revisão" \
+                and "Não informado" not in r.get("observacoes", "") \
                 and "DOI" not in r.get("observacoes", ""):
             aviso(6, f"registro {r['id']}: sem DOI e sem explicação nas observações")
 
@@ -219,6 +223,83 @@ def valida_artefatos(d):
 
 
 # --------------------------------------------------------------------
+# Todo sítio cai dentro do polígono do município que declara
+# --------------------------------------------------------------------
+def _malha():
+    import subprocess, json as _j
+    caminho = RAIZ / "js" / "malha.js"
+    if not caminho.exists():
+        return None
+    script = ("const m=require(%s);process.stdout.write(JSON.stringify("
+              "{lar:m.MAPA_LARGURA,alt:m.MAPA_ALTURA,cx:m.MAPA_CAIXA,"
+              "mun:m.DB_MUNICIPIOS.map(x=>({n:x.n,d:x.d}))}));" % _j.dumps(str(caminho)))
+    return _j.loads(subprocess.run(["node", "-e", script], capture_output=True,
+                                   text=True, check=True).stdout)
+
+
+def _aneis_do_path(d):
+    import re as _re
+    for trecho in d.split("M")[1:]:
+        pts = []
+        for par in trecho.rstrip("Z").split("L"):
+            par = par.strip()
+            if not par:
+                continue
+            x, y = par.split()
+            pts.append((float(x), float(y)))
+        if len(pts) >= 3:
+            yield pts
+
+
+def _dentro(p, anel):
+    x, y = p
+    dentro = False
+    j = len(anel) - 1
+    for i in range(len(anel)):
+        xi, yi = anel[i]
+        xj, yj = anel[j]
+        if (yi > y) != (yj > y) and x < (xj - xi) * (y - yi) / (yj - yi) + xi:
+            dentro = not dentro
+        j = i
+    return dentro
+
+
+def valida_sitios_na_malha(d):
+    import math
+    malha = _malha()
+    if malha is None:
+        aviso(11, "js/malha.js ainda não gerado — rode scripts/gerar-malha.py")
+        return
+    cx = malha["cx"]
+    k = math.cos(math.radians((cx["lat0"] + cx["lat1"]) / 2))
+    ex, ey = (cx["lon1"] - cx["lon0"]) * k, (cx["lat1"] - cx["lat0"])
+    esc = min(malha["lar"] / ex, malha["alt"] / ey)
+    offx, offy = (malha["lar"] - ex * esc) / 2, (malha["alt"] - ey * esc) / 2
+
+    por_nome = {}
+    for m in malha["mun"]:
+        por_nome.setdefault(m["n"], []).extend(_aneis_do_path(m["d"]))
+
+    nomes_reg = {r["municipio"] for r in d["registros"]}
+    for nome in sorted(nomes_reg):
+        if nome not in por_nome:
+            erro(11, f"município '{nome}' não existe na malha do RS")
+
+    for s_ in d["sitios"]:
+        if s_["municipio"] not in por_nome:
+            continue
+        px = (s_["lon"] - cx["lon0"]) * k * esc + offx
+        py = (cx["lat1"] - s_["lat"]) * esc + offy
+        if not any(_dentro((px, py), anel) for anel in por_nome[s_["municipio"]]):
+            msg = (f"sítio '{s_['nome']}' cai fora do polígono de "
+                   f"{s_['municipio']}")
+            if s_.get("coord_precisao") == "publicada":
+                erro(11, msg + " — coordenada publicada, então é erro de dado")
+            else:
+                aviso(11, msg + f" — coordenada {s_.get('coord_precisao')}, confira")
+
+
+# --------------------------------------------------------------------
 # Contraste dos tokens de texto (WCAG AA = 4,5:1)
 # --------------------------------------------------------------------
 def _lum(hexa):
@@ -266,6 +347,7 @@ def main():
     valida_periodos(dados)
     valida_instituicoes(dados)
     valida_artefatos(dados)
+    valida_sitios_na_malha(dados)
     valida_contraste()
 
     print()

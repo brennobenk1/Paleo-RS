@@ -13,6 +13,7 @@ html = (RAIZ / "index.html").read_text(encoding="utf-8")
 css = (RAIZ / "css" / "estilo.css").read_text(encoding="utf-8")
 dados = (RAIZ / "js" / "dados.js").read_text(encoding="utf-8")
 app = (RAIZ / "js" / "app.js").read_text(encoding="utf-8")
+malha = (RAIZ / "js" / "malha.js").read_text(encoding="utf-8")
 
 # a logo entra como data URI: a prévia tem de ser um arquivo só
 logo = (RAIZ / "imgs" / "logo-vet.svg").read_text(encoding="utf-8")
@@ -23,6 +24,8 @@ html = html.replace('src="imgs/logo-vet.svg"', f'src="{logo_uri}"')
 
 html = html.replace('<link rel="stylesheet" href="css/estilo.css">',
                     f"<style>\n{css}\n</style>")
+html = html.replace('<script src="js/malha.js"></script>',
+                    f"<script>\n{malha}\n</script>")
 html = html.replace('<script src="js/dados.js"></script>',
                     f"<script>\n{dados}\n</script>")
 html = html.replace('<script defer src="js/app.js"></script>',

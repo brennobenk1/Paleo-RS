@@ -1,6 +1,6 @@
 {
-  "versao": "2026.09.1",
-  "data": "2026-09-16",
+  "versao": "2026.09.2",
+  "data": "2026-09-17",
   "licenca": "CC BY 4.0",
   "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
   "sitios": [
@@ -42,6 +42,30 @@
       "lat": -29.5353,
       "lon": -53.8683,
       "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Fazenda Boqueirão",
+      "municipio": "São Gabriel",
+      "lat": -30.0022,
+      "lon": -54.0858,
+      "count": 3,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Sesmaria do Pinhal 1",
+      "municipio": "Candelária",
+      "lat": -29.6667,
+      "lon": -52.7833,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Linha São Luiz",
+      "municipio": "Faxinal do Soturno",
+      "lat": -29.5789,
+      "lon": -53.4436,
+      "count": 4,
       "coord_precisao": "regional"
     }
   ]

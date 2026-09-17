@@ -1,6 +1,6 @@
 {
-  "versao": "2026.09.1",
-  "data": "2026-09-16",
+  "versao": "2026.09.2",
+  "data": "2026-09-17",
   "licenca": "CC BY 4.0",
   "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
   "instituicoes": [
@@ -59,6 +59,27 @@
       "cidade": "Ribeirão Preto, SP",
       "site": "https://www.ffclrp.usp.br",
       "acervo": "Grupo de pesquisa em dinossauros basais do Triássico sul-brasileiro."
+    },
+    {
+      "sigla": "UFRGS",
+      "nome": "Universidade Federal do Rio Grande do Sul — Laboratório de Paleovertebrados",
+      "cidade": "Porto Alegre, RS",
+      "site": "https://www.ufrgs.br/paleovertebrados/",
+      "acervo": "Série UFRGS-PV, uma das maiores coleções de vertebrados fósseis do Brasil; referência em cinodontes triássicos e terápsidas permianos."
+    },
+    {
+      "sigla": "UNIPAMPA",
+      "nome": "Universidade Federal do Pampa — Laboratório de Paleobiologia",
+      "cidade": "São Gabriel, RS",
+      "site": "https://unipampa.edu.br",
+      "acervo": "Tetrápodes permianos da Fm. Rio do Rasto; guarda os holótipos de Rastodon procurvidens e o segundo crânio de Pampaphoneus biccai."
+    },
+    {
+      "sigla": "MCN",
+      "nome": "Museu de Ciências Naturais (ex-Fundação Zoobotânica do RS)",
+      "cidade": "Porto Alegre, RS",
+      "site": "https://www.sema.rs.gov.br",
+      "acervo": "Série MCN-PV; guarda os holótipos de Riograndia guaibensis e Guaibasaurus candelariensis."
     },
     {
       "sigla": "PUCRS",
