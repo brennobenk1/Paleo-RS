@@ -2,6 +2,38 @@
 
 Versionamento `ANO.MÊS.N`.
 
+## 2026.09.3 — 2026-09-17
+
+Revisão visual. A folha de estilo foi reescrita depois de olhar o site
+renderizado num navegador de verdade, em vez de só no papel.
+
+### Defeito corrigido
+- **A faixa colorida de período não aparecia em nenhum cartão.** O `<button>`
+  do cartão herda `align-items: center` do estilo do navegador, o que achatava
+  a faixa para altura zero. Era o elemento central do design — leitura imediata
+  da idade sem ler texto — e estava invisível desde a primeira versão. Nenhum
+  teste de DOM pega isso; só a captura de tela pegou.
+- Botões que são `<a>` apareciam sublinhados e em vermelho de link.
+- Selects com o rótulo cortado ("todas as instituiçõe").
+
+### Mudanças de design
+- Fundo passou de bege esverdeado para branco quente neutro. A cor forte fica
+  nas faixas de período e no cabeçalho escuro; o resto é papel.
+- A logo virou elemento gráfico do herói, em 148 px, no lugar de um placar
+  flutuante que deixava metade da faixa vazia.
+- Placar de números em linha, sob as ações.
+- Cartões: metadados em coluna única com rótulo alinhado, tombo discreto em
+  monoespaçada no rodapé do cartão em vez de etiqueta vermelha saliente, e
+  rodapé fixado na base para todos terminarem na mesma linha.
+- Linha do tempo compactada; períodos vazios em linha mais baixa.
+- "Unidades com registro" agora lista a unidade litoestratigráfica base, sem
+  repetir a mesma formação com e sem membro.
+- Pluralização correta: "1 registro", "3 registros", no lugar de "registro(s)".
+
+### Ferramenta nova
+- `scripts/tirar-telas.js` renderiza as seis abas em desktop e celular e salva
+  as capturas. Defeito visual não aparece em teste de DOM.
+
 ## 2026.09.2 — 2026-09-17
 
 Reestruturação em abas e primeira ampliação do catálogo.

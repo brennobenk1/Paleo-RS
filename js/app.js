@@ -56,6 +56,14 @@
 
   const grupoDe = (r) => String(r.categoria).split("—")[0].trim();
 
+  /* "1 registro", "3 registros" — "registro(s)" é desleixo visível. */
+  const plural = (n, um, muitos) => `${n} ${n === 1 ? um : muitos}`;
+
+  /* "Fm. Santa Maria / Sequência Candelária (Membro Alemoa)" e
+     "Fm. Santa Maria / Sequência Candelária" são a mesma unidade
+     litoestratigráfica; listar as duas na linha do tempo é ruído. */
+  const unidadeBase = (r) => String(r.formacao).split("/")[0].trim();
+
   /* ================= projeção — a mesma do gerador da malha ============ */
   const PROJ = (function () {
     const k = Math.cos(MAPA_CAIXA.lat0 * 0 + (MAPA_CAIXA.lat0 + MAPA_CAIXA.lat1) / 2 * Math.PI / 180);
@@ -123,13 +131,15 @@
         `<span class="taxon">${esc(t.nome)}${t.autoria ? ` <span class="autoria">${esc(t.autoria)}</span>` : ""}</span>` +
         `<dl>` +
           `<div><dt>Idade</dt><dd>${esc(r.periodo)}</dd></div>` +
-          `<div><dt>Formação</dt><dd>${esc(r.formacao)}</dd></div>` +
+          `<div><dt>Unidade</dt><dd>${esc(r.formacao)}</dd></div>` +
           `<div><dt>Município</dt><dd>${esc(r.municipio)}</dd></div>` +
           `<div><dt>Acervo</dt><dd>${esc(String(r.armazenamento).split(",")[0])}</dd></div>` +
         `</dl>` +
-        `<span class="selo" data-fonte="${esc(r.tipo_fonte)}">${esc(r.tipo_fonte)}</span>` +
-      `</span>` +
-      `<span class="etiqueta-tombo">${esc(String(r.numero_catalogo).split(";")[0])}</span>`;
+        `<span class="cartao-pe">` +
+          `<span class="tombo">${esc(String(r.numero_catalogo).split(";")[0])}</span>` +
+          `<span class="selo" data-fonte="${esc(r.tipo_fonte)}">${esc(r.tipo_fonte)}</span>` +
+        `</span>` +
+      `</span>`;
     return el;
   }
 
@@ -256,8 +266,8 @@
       const k = normalizar(m.n);
       const tem = comRegistro.has(k);
       munHtml += `<path class="mun${tem ? " com-registro" : ""}" d="${m.d}" data-mun="${esc(m.n)}"` +
-        (tem ? ` tabindex="0" role="button" aria-label="${esc(m.n)}: ${contaMun[k]} registro(s)"` : ' aria-hidden="true"') +
-        `><title>${esc(m.n)}${tem ? ` — ${contaMun[k]} registro(s)` : ""}</title></path>`;
+        (tem ? ` tabindex="0" role="button" aria-label="${esc(m.n)}: ${plural(contaMun[k], "registro", "registros")}"` : ' aria-hidden="true"') +
+        `><title>${esc(m.n)}${tem ? ` — ${plural(contaMun[k], "registro", "registros")}` : ""}</title></path>`;
     });
 
     let sitioHtml = "";
@@ -266,9 +276,9 @@
       if (deslocado) sitioHtml += `<line class="haste" x1="${p.x.toFixed(1)}" y1="${p.y.toFixed(1)}" x2="${p.ox.toFixed(1)}" y2="${p.oy.toFixed(1)}"/>`;
       sitioHtml += `<circle class="sitio" cx="${p.ox.toFixed(1)}" cy="${p.oy.toFixed(1)}" r="${p.r.toFixed(1)}"` +
         ` data-sitio="${esc(p.s.nome)}" tabindex="0" role="button"` +
-        ` aria-label="${esc(p.s.nome)}, ${esc(p.s.municipio)}: ${p.s.count} registro(s)"` +
+        ` aria-label="${esc(p.s.nome)}, ${esc(p.s.municipio)}: ${plural(p.s.count, "registro", "registros")}"` +
         (p.s.coord_precisao === "regional" ? ' stroke-dasharray="3 2"' : "") +
-        `><title>${esc(p.s.nome)} — ${p.s.count} registro(s)</title></circle>`;
+        `><title>${esc(p.s.nome)} — ${plural(p.s.count, "registro", "registros")}</title></circle>`;
     });
 
     svg.innerHTML = `<g id="mapa-camadas">${munHtml}${sitioHtml}</g>`;
@@ -361,8 +371,8 @@
     const regs = DB_REGISTROS.filter((r) => normalizar(r.municipio) === normalizar(nome));
     if (!regs.length) return;
     $("#sitio-detalhe").innerHTML =
-      `<p><b>${esc(nome)}</b><br><span class="cidade">${regs.length} registro(s) em ` +
-      `${new Set(regs.map((r) => r.site)).size} sítio(s)</span></p>` +
+      `<p><b>${esc(nome)}</b><br><span class="cidade">${plural(regs.length, "registro", "registros")} em ` +
+      `${plural(new Set(regs.map((r) => r.site)).size, "sítio", "sítios")}</span></p>` +
       `<ul class="lista-taxons">` +
       regs.map((r) => `<button type="button" class="ligacao-registro" data-id="${r.id}">${esc(partirTaxon(r.taxon).nome)}</button>`).join("") +
       `</ul>` +
@@ -375,9 +385,9 @@
     $("#acordeao").innerHTML = DB_PERIODOS.slice().sort((a, b) => b.ordem - a.ordem).map((p) => {
       const regs = DB_REGISTROS.filter((r) => r.periodo_chave === p.chave);
       const bios = DB_BIOZONAS.filter((z) => regs.some((r) => r.biozona_chave === z.chave));
-      const unidades = Array.from(new Set(regs.map((r) => r.formacao))).sort();
+      const unidades = Array.from(new Set(regs.map(unidadeBase))).sort();
       return `<div class="periodo-bloco">` +
-        `<button type="button" class="periodo-cab" data-periodo="${p.chave}" aria-expanded="false">` +
+        `<button type="button" class="periodo-cab" data-periodo="${p.chave}" data-vazio="${p.total_registros ? "nao" : "sim"}" aria-expanded="false">` +
           `<span class="bloco" style="background:${p.cor}"></span>` +
           `<span><span class="nome">${esc(p.nome)}</span><br>` +
           `<span class="ma">${p.inicio_ma} – ${p.fim_ma} Ma</span></span>` +
@@ -389,7 +399,7 @@
             ? `<p class="conduz">Unidades com registro: ${esc(unidades.join(" · "))}</p>` +
               bios.map((z) => {
                 const rz = regs.filter((r) => r.biozona_chave === z.chave);
-                return `<div class="biozona"><b>${esc(z.nome)}</b><span>${esc(z.idade)} · ${rz.length} registro(s)</span>` +
+                return `<div class="biozona"><b>${esc(z.nome)}</b><span>${esc(z.idade)} · ${plural(rz.length, "registro", "registros")}</span>` +
                   `<ul class="lista-taxons">` +
                   rz.map((r) => `<button type="button" class="ligacao-registro" data-id="${r.id}">${esc(partirTaxon(r.taxon).nome)}</button>`).join("") +
                   `</ul></div>`;
@@ -398,7 +408,7 @@
                 const soltos = regs.filter((r) => !r.biozona_chave);
                 return soltos.length
                   ? `<div class="biozona"><b>Sem zona de assembleia atribuída</b>` +
-                    `<span>${soltos.length} registro(s)</span><ul class="lista-taxons">` +
+                    `<span>${plural(soltos.length, "registro", "registros")}</span><ul class="lista-taxons">` +
                     soltos.map((r) => `<button type="button" class="ligacao-registro" data-id="${r.id}">${esc(partirTaxon(r.taxon).nome)}</button>`).join("") +
                     `</ul></div>` : "";
               })()
@@ -426,7 +436,7 @@
         `<h3>${esc(i.nome)}</h3>` +
         `<p class="cidade">${esc(i.cidade)}</p>` +
         `<p>${esc(i.acervo)}</p>` +
-        `<p class="qtd-reg">${n} registro(s) no banco</p>` +
+        `<p class="qtd-reg">${plural(n, "registro", "registros")} no banco</p>` +
         (i.site ? `<p><a href="${esc(i.site)}" target="_blank" rel="noopener">Site institucional</a></p>` : "") +
         `</article>`;
     }).join("");

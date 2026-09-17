@@ -72,7 +72,7 @@ setTimeout(() => {
   ok(!d.querySelector("#modal-citar").hidden, "modal Como citar abre");
   const abnt = d.querySelector("#citacao-texto").textContent;
   ok(/^BENK, Brenno Alef\./.test(abnt), `ABNT começa pela autoria: ${abnt.slice(0,40)}…`);
-  ok(/Versão 2026\.09\.2/.test(abnt), "ABNT traz a versão do banco");
+  ok(/Versão 2026\.09\.3/.test(abnt), "ABNT traz a versão do banco");
   ok(/Acesso em: \d+ \w+\.? \d{4}/.test(abnt), "ABNT traz data de acesso automática");
   clique(d.querySelector('.guia[data-norma="apa"]'));
   ok(/^Benk, B\. A\. \(2026\)/.test(d.querySelector("#citacao-texto").textContent), "APA formata o nome de outro jeito");

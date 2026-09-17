@@ -319,7 +319,7 @@ def razao(a, b):
 def valida_contraste():
     css = (RAIZ / "css" / "estilo.css").read_text(encoding="utf-8")
     tokens = dict(re.findall(r"--([\w-]+):\s*(#[0-9A-Fa-f]{6})", css))
-    pares = [("tinta", "campo"), ("tinta-2", "campo"),
+    pares = [("tinta", "fundo"), ("tinta-2", "fundo"),
              ("tinta", "papel"), ("tinta-2", "papel"),
              ("alemoa", "papel"), ("pampa", "papel"),
              ("sobre-carvao", "carvao"), ("osso", "carvao")]
