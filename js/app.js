@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  const LOTE = 36;
+  const FATIA = 60;   // cartões por quadro de animação, não por clique
   const ABAS = ["inicio", "catalogo", "mapa", "periodos", "instituicoes", "sobre"];
 
   /* Autoria guardada em partes: cada norma monta o nome de um jeito. */
@@ -22,7 +22,7 @@
   const estado = {
     aba: "inicio",
     busca: "", periodo: "", grupo: "", formacao: "", municipio: "", instituicao: "",
-    vista: "cartoes", mostrados: 0, filtrados: [],
+    vista: "cartoes", mostrados: 0, pendente: null, filtrados: [],
     mapa: { escala: 1, x: 0, y: 0, sitio: null }
   };
 
@@ -91,21 +91,27 @@
         r.numero_catalogo, r.armazenamento, r.descritor, r.observacoes].join(" "));
       return b.split(/\s+/).every((t) => alvo.includes(t));
     });
+    if (estado.pendente) { cancelAnimationFrame(estado.pendente); estado.pendente = null; }
     estado.mostrados = 0;
     $("#grade").innerHTML = "";
     $("#tabela-corpo").innerHTML = "";
-    renderizarLote();
+    renderizarTudo();
     const n = estado.filtrados.length, total = DB_REGISTROS.length;
     $("#contagem").textContent = n === total
       ? `${total} ${total === 1 ? "registro" : "registros"}`
       : `${n} de ${total} registros`;
     $("#vazio").hidden = n > 0;
+    sincronizarFitas();
     if (gravar !== false) gravarHash();
   }
 
-  function renderizarLote() {
-    const fim = Math.min(estado.mostrados + LOTE, estado.filtrados.length);
+  /* Renderiza TUDO. A fatia existe só para não travar a interface com
+     centenas de cartões de uma vez: cada fatia entra num quadro de
+     animação, e o navegador respira entre elas. Não há botão: o
+     catálogo inteiro aparece sozinho. */
+  function renderizarTudo() {
     const fc = document.createDocumentFragment(), ft = document.createDocumentFragment();
+    const fim = Math.min(estado.mostrados + FATIA, estado.filtrados.length);
     for (let i = estado.mostrados; i < fim; i++) {
       fc.appendChild(montarCartao(estado.filtrados[i]));
       ft.appendChild(montarLinha(estado.filtrados[i]));
@@ -113,9 +119,12 @@
     $("#grade").appendChild(fc);
     $("#tabela-corpo").appendChild(ft);
     estado.mostrados = fim;
-    const faltam = estado.filtrados.length - estado.mostrados;
-    $("#mais").hidden = faltam <= 0;
-    $("#mais").textContent = `Mostrar mais ${Math.min(LOTE, faltam)}`;
+    if (estado.mostrados < estado.filtrados.length) {
+      /* guarda o pedido para poder cancelá-lo se o filtro mudar no meio */
+      estado.pendente = requestAnimationFrame(renderizarTudo);
+    } else {
+      estado.pendente = null;
+    }
   }
 
   function montarCartao(r) {
@@ -282,12 +291,67 @@
     });
 
     svg.innerHTML = `<g id="mapa-camadas">${munHtml}${sitioHtml}</g>`;
+    $("#mapa-dica").hidden = true;
     $("#bacias-lista").innerHTML = DB_BACIAS.map((b) =>
       `<div class="bacia-item"><b>${esc(b.nome)}</b><span>${esc(b.idade)} · ${esc(b.unidades.join(", "))}</span></div>`
     ).join("");
 
     ligarZoom(svg);
+    ligarDica(svg);
     mapaMontado = true;
+  }
+
+  /* Sem isto o clique no mapa era mudo: o painel lateral mudava, mas em
+     tela estreita ele fica abaixo do mapa e a pessoa não via nada
+     acontecer. A dica diz, no próprio ponto, o que está sob o cursor. */
+  function ligarDica(svg) {
+    const dica = $("#mapa-dica");
+    const caixa = svg.parentElement;
+
+    function conteudo(alvo) {
+      if (alvo.classList.contains("sitio")) {
+        const s = DB_SITIOS.find((x) => x.nome === alvo.dataset.sitio);
+        if (!s) return null;
+        return `<b>${esc(s.nome)}</b><span>${esc(s.municipio)}</span>` +
+               `<em>${plural(s.count, "registro", "registros")} · coordenada ${esc(s.coord_precisao)}</em>`;
+      }
+      const nome = alvo.dataset.mun;
+      const regs = DB_REGISTROS.filter((r) => normalizar(r.municipio) === normalizar(nome));
+      const sitios = new Set(regs.map((r) => r.site)).size;
+      return `<b>${esc(nome)}</b>` +
+             `<em>${plural(regs.length, "registro", "registros")} em ${plural(sitios, "sítio", "sítios")}</em>`;
+    }
+
+    function mostrar(alvo, ev) {
+      const html = conteudo(alvo);
+      if (!html) return;
+      dica.innerHTML = html;
+      dica.hidden = false;
+      const r = caixa.getBoundingClientRect();
+      let x = ev.clientX - r.left, y = ev.clientY - r.top;
+      /* mantém a dica dentro da caixa do mapa */
+      const larg = dica.offsetWidth || 180;
+      x = Math.min(Math.max(x, larg / 2 + 6), r.width - larg / 2 - 6);
+      y = Math.max(y, dica.offsetHeight + 14);
+      dica.style.left = x + "px";
+      dica.style.top = y + "px";
+    }
+
+    svg.addEventListener("pointermove", (ev) => {
+      const alvo = ev.target.closest && ev.target.closest(".sitio, .mun.com-registro");
+      if (alvo) mostrar(alvo, ev); else dica.hidden = true;
+    });
+    svg.addEventListener("pointerleave", () => { dica.hidden = true; });
+
+    /* teclado: a dica acompanha o foco, senão a camada fica muda para
+       quem navega com Tab */
+    svg.addEventListener("focusin", (ev) => {
+      const alvo = ev.target;
+      if (!alvo.classList || !(alvo.classList.contains("sitio") || alvo.classList.contains("com-registro"))) return;
+      const b = alvo.getBoundingClientRect(), r = caixa.getBoundingClientRect();
+      mostrar(alvo, { clientX: b.left + b.width / 2, clientY: b.top + Math.min(b.height / 2, 40) });
+    });
+    svg.addEventListener("focusout", () => { dica.hidden = true; });
   }
 
   function ligarZoom(svg) {
@@ -323,24 +387,46 @@
       zoomPara(ev.deltaY < 0 ? 1.18 : 1 / 1.18, p.x, p.y);
     }, { passive: false });
 
-    let arrastando = false, ini = null, base = null;
+    /* O arraste só captura o ponteiro DEPOIS de sair do lugar. Capturar
+       já no pointerdown fazia o evento de clique nascer com o SVG inteiro
+       como alvo, e clique em sítio ou município não selecionava nada. */
+    const LIMIAR = 4;
+    let pendente = false, arrastando = false, ini = null, base = null;
+
     svg.addEventListener("pointerdown", (ev) => {
-      arrastando = true; ini = ponto(ev);
+      if (ev.button !== 0 && ev.pointerType === "mouse") return;
+      pendente = true; arrastando = false;
+      ini = ponto(ev);
       base = { x: estado.mapa.x, y: estado.mapa.y };
-      svg.classList.add("arrastando");
-      svg.setPointerCapture(ev.pointerId);
     });
+
     svg.addEventListener("pointermove", (ev) => {
-      if (!arrastando) return;
+      if (!pendente) return;
       const p = ponto(ev);
+      const escalaTela = svg.getBoundingClientRect().width / MAPA_LARGURA;
+      if (!arrastando &&
+          Math.hypot(p.x - ini.x, p.y - ini.y) * escalaTela > LIMIAR) {
+        arrastando = true;
+        svg.classList.add("arrastando");
+        try { svg.setPointerCapture(ev.pointerId); } catch (e) { /* ignora */ }
+      }
+      if (!arrastando) return;
       estado.mapa.x = base.x + (p.x - ini.x);
       estado.mapa.y = base.y + (p.y - ini.y);
       aplicar();
     });
+
     const soltar = (ev) => {
+      pendente = false;
+      if (arrastando) {
+        svg.classList.remove("arrastando");
+        try {
+          if (ev.pointerId != null && svg.hasPointerCapture(ev.pointerId)) {
+            svg.releasePointerCapture(ev.pointerId);
+          }
+        } catch (e) { /* ignora */ }
+      }
       arrastando = false;
-      svg.classList.remove("arrastando");
-      if (ev.pointerId != null && svg.hasPointerCapture(ev.pointerId)) svg.releasePointerCapture(ev.pointerId);
     };
     svg.addEventListener("pointerup", soltar);
     svg.addEventListener("pointercancel", soltar);
@@ -358,6 +444,8 @@
     if (!s) return;
     estado.mapa.sitio = nome;
     $$(".sitio").forEach((c) => c.classList.toggle("ativo", c.dataset.sitio === nome));
+    $$(".mun").forEach((m) => m.classList.toggle("selecionado",
+      normalizar(m.dataset.mun) === normalizar(s.municipio)));
     const regs = DB_REGISTROS.filter((r) => r.site === nome);
     $("#sitio-detalhe").innerHTML =
       `<p><b>${esc(s.nome)}</b><br><span class="cidade">${esc(s.municipio)}</span></p>` +
@@ -365,6 +453,15 @@
       `<ul class="lista-taxons">` +
       regs.map((r) => `<button type="button" class="ligacao-registro" data-id="${r.id}">${esc(partirTaxon(r.taxon).nome)}</button>`).join("") +
       `</ul>`;
+    revelarPainel();
+  }
+
+  /* Em tela estreita o painel fica abaixo do mapa; sem isto o clique
+     parece não fazer nada. */
+  function revelarPainel() {
+    if (window.innerWidth > 900) return;
+    const p = $(".mapa-lateral");
+    if (p && p.scrollIntoView) p.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function selecionarMunicipio(nome) {
@@ -377,6 +474,11 @@
       regs.map((r) => `<button type="button" class="ligacao-registro" data-id="${r.id}">${esc(partirTaxon(r.taxon).nome)}</button>`).join("") +
       `</ul>` +
       `<p><button type="button" class="botao secundario" data-filtrar-municipio="${esc(nome)}">Ver no catálogo</button></p>`;
+    estado.mapa.sitio = null;
+    $$(".sitio").forEach((c) => c.classList.remove("ativo"));
+    $$(".mun").forEach((m) => m.classList.toggle("selecionado",
+      normalizar(m.dataset.mun) === normalizar(nome)));
+    revelarPainel();
   }
 
   /* ========================== PERÍODOS =============================== */
@@ -415,6 +517,23 @@
             : `<p class="conduz">Nenhum registro neste período ainda. O período aparece na coluna mesmo assim — omitir intervalos vazios daria a impressão de que não existem no estado.</p>`) +
         `</div></div>`;
     }).join("");
+  }
+
+  /* Fitas de período: o mesmo filtro do select, mas visível e com a cor
+     da coluna estratigráfica. Num catálogo de 154 cartões, é a forma
+     mais rápida de cortar para o intervalo que interessa. */
+  function montarFitas() {
+    const usados = DB_PERIODOS.filter((p) => p.total_registros > 0)
+      .sort((a, b) => a.ordem - b.ordem);
+    $("#fitas").innerHTML = usados.map((p) =>
+      `<button type="button" class="fita" data-periodo="${p.chave}" aria-pressed="false">` +
+      `<span class="ponto" style="background:${p.cor}"></span>` +
+      `<span>${esc(p.nome)}</span><span class="n">${p.total_registros}</span></button>`).join("");
+  }
+
+  function sincronizarFitas() {
+    $$(".fita").forEach((f) =>
+      f.setAttribute("aria-pressed", String(f.dataset.periodo === estado.periodo)));
   }
 
   function montarColunaInicio() {
@@ -608,6 +727,7 @@
     popular("#f-municipio", unicos((r) => r.municipio), "todos os municípios");
     popular("#f-instituicao", DB_INSTITUICOES.map((i) => i.sigla), "todas as instituições");
 
+    montarFitas();
     montarColunaInicio();
     montarPeriodos();
     montarInstituicoes();
@@ -623,7 +743,6 @@
       ["periodo", "grupo", "formacao", "municipio", "instituicao"].forEach((k) => { $(`#f-${k}`).value = ""; });
       aplicarFiltros();
     });
-    $("#mais").addEventListener("click", renderizarLote);
     $("#csv").addEventListener("click", exportarCSV);
     $("#json").addEventListener("click", exportarJSON);
     $("#alternar").addEventListener("click", () => {
@@ -657,6 +776,14 @@
 
       const item = ev.target.closest(".cartao, .ligacao-registro");
       if (item) { abrirFicha(item.dataset.id); return; }
+
+      const fita = ev.target.closest(".fita");
+      if (fita) {
+        estado.periodo = estado.periodo === fita.dataset.periodo ? "" : fita.dataset.periodo;
+        $("#f-periodo").value = estado.periodo;
+        aplicarFiltros();
+        return;
+      }
 
       const faixa = ev.target.closest(".coluna-faixa");
       if (faixa) {
@@ -715,6 +842,27 @@
       if (!$("#modal").hidden || !$("#modal-citar").hidden) return;
       lerHash();
     });
+
+    /* A barra de filtros gruda quando sai da vista, e o botão de voltar
+       ao topo aparece depois de uma tela de rolagem. Ambos só existem
+       porque o catálogo não tem mais paginação. */
+    const filtros = $("#filtros"), aoTopo = $("#ao-topo");
+    let topoFiltros = 0;
+    const medir = () => {
+      filtros.classList.remove("grudada");
+      topoFiltros = filtros.getBoundingClientRect().top + window.scrollY;
+    };
+    medir();
+    window.addEventListener("resize", medir);
+    window.addEventListener("scroll", () => {
+      if (estado.aba === "catalogo") {
+        filtros.classList.toggle("grudada", window.scrollY > topoFiltros - 66);
+      } else {
+        filtros.classList.remove("grudada");
+      }
+      aoTopo.hidden = window.scrollY < window.innerHeight;
+    }, { passive: true });
+    aoTopo.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
     lerHash();
   }

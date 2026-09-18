@@ -103,7 +103,9 @@
     <h2>Consulta ao banco de dados — Rio Grande do Sul</h2>
     <p class="conduz">Filtre por período, grupo, formação, município ou instituição. Clique num registro para abrir a ficha completa com referências e fontes de verificação.</p>
 
-    <div class="filtros">
+    <div class="fitas" id="fitas" aria-label="Filtro rápido por período"></div>
+
+    <div class="filtros" id="filtros">
       <div class="filtros-linha">
         <label class="campo" style="flex:2 1 260px"><span>buscar</span>
           <input type="search" id="busca" placeholder="táxon, formação, município, tombo, autor…"></label>
@@ -133,7 +135,6 @@
       </table>
     </div>
     <p id="vazio" hidden>Nenhum registro corresponde aos filtros selecionados. Tente ampliar os critérios.</p>
-    <p class="centro"><button type="button" class="botao" id="mais" hidden></button></p>
   </div>
 </section>
 
@@ -152,6 +153,7 @@
           <button type="button" class="botao-mapa" id="zoom-reset" aria-label="Enquadrar o estado">◎</button>
         </div>
         <svg id="mapa" role="group" aria-label="Mapa dos sítios fossilíferos do Rio Grande do Sul"></svg>
+        <div id="mapa-dica" class="mapa-dica" role="status" aria-live="polite" hidden></div>
         <p class="dica-mapa">Arraste para mover · role para aproximar · clique num sítio ou município</p>
       </div>
       <aside class="mapa-lateral">
@@ -273,6 +275,8 @@
     </div>
   </div>
 </footer>
+
+<button type="button" class="ao-topo" id="ao-topo" aria-label="Voltar ao topo" hidden>↑</button>
 
 <script src="js/malha.js"></script>
 <script src="js/dados.js"></script>

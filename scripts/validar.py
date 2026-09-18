@@ -57,20 +57,29 @@ def valida_coordenadas(d):
 FORMACAO_BACIA = {
     "Fm. Sanga do Cabral": "Bacia do Paraná — Supersequência Santa Maria",
     "Fm. Santa Maria": "Bacia do Paraná — Supersequência Santa Maria",
+    "Arenito Mata": "Bacia do Paraná — Supersequência Santa Maria",
     "Fm. Caturrita": "Bacia do Paraná — Supersequência Santa Maria",
     "Grupo Itararé": "Bacia do Paraná — Supersequência Gondwana I",
+    "Fm. Itararé": "Bacia do Paraná — Supersequência Gondwana I",
     "Fm. Rio Bonito": "Bacia do Paraná — Supersequência Gondwana I",
     "Fm. Irati": "Bacia do Paraná — Supersequência Gondwana I",
     "Fm. Rio do Rasto": "Bacia do Paraná — Supersequência Gondwana I",
+    "Fm. Teresina": "Bacia do Paraná — Supersequência Gondwana I",
     "Fm. Botucatu": "Bacia do Paraná — Supersequência Gondwana III",
     "Fm. Serra Geral": "Bacia do Paraná — Supersequência Gondwana III",
-    "Fm. Touro Passo": "Bacia de Pelotas e planície costeira",
+    "Diversos litotipos escavados": "Escudo Sul-rio-grandense e depósitos cenozoicos associados",
+    "Fm. Touro Passo": "Depósitos fluviais quaternários da bacia do rio Uruguai",
+    "Alofm. Santa Vitória": "Bacia de Pelotas e planície costeira",
+    "Fm. Cordão": "Bacia de Pelotas e planície costeira",
 }
 
 
 def valida_estratigrafia(d):
     for r in d["registros"]:
-        base = r["formacao"].split("/")[0].strip()
+        # "Fm. X / Sequência Y (Membro Z)" e "Fm. X (posição contestada)"
+        # são a mesma unidade litoestratigráfica: corta a barra e o
+        # parêntese antes de comparar.
+        base = r["formacao"].split("/")[0].split("(")[0].strip()
         esperada = FORMACAO_BACIA.get(base)
         if esperada is None:
             aviso(2, f"registro {r['id']}: formação '{base}' não está na tabela "
@@ -300,6 +309,49 @@ def valida_sitios_na_malha(d):
 
 
 # --------------------------------------------------------------------
+# 12. PROCEDÊNCIA — a regra inegociável do banco
+# --------------------------------------------------------------------
+def valida_procedencia(d):
+    """Todo registro tem de ser de material COLETADO no Rio Grande do Sul.
+
+    A guarda pode ser em qualquer lugar do mundo — Harvard, Munique — mas
+    a coleta tem de ser gaúcha. Esta regra confere as três coisas que o
+    banco pode verificar sozinho: o município existe entre os 496 da
+    malha do IBGE, a coordenada cai dentro desse município, e o texto de
+    local de coleta declara o estado. O que ela não pode conferir é a
+    fonte dizer a verdade; para isso existe o campo `fontes`.
+    """
+    import math
+    malha = _malha()
+    if malha is None:
+        aviso(12, "js/malha.js ausente — procedência não verificada")
+        return
+    cx = malha["cx"]
+    k = math.cos(math.radians((cx["lat0"] + cx["lat1"]) / 2))
+    ex, ey = (cx["lon1"] - cx["lon0"]) * k, (cx["lat1"] - cx["lat0"])
+    esc = min(malha["lar"] / ex, malha["alt"] / ey)
+    offx, offy = (malha["lar"] - ex * esc) / 2, (malha["alt"] - ey * esc) / 2
+
+    poligonos = {}
+    for m in malha["mun"]:
+        poligonos.setdefault(m["n"], []).extend(_aneis_do_path(m["d"]))
+
+    for r in d["registros"]:
+        mun = r["municipio"]
+        if mun not in poligonos:
+            erro(12, f"registro {r['id']}: município '{mun}' não existe no RS — "
+                     f"material fora do escopo do banco")
+            continue
+        px = (r["lon"] - cx["lon0"]) * k * esc + offx
+        py = (cx["lat1"] - r["lat"]) * esc + offy
+        if not any(_dentro((px, py), anel) for anel in poligonos[mun]):
+            erro(12, f"registro {r['id']}: coordenada não cai dentro de {mun}")
+        texto = r.get("local_coleta", "")
+        if "RS" not in texto and "Rio Grande do Sul" not in texto:
+            aviso(12, f"registro {r['id']}: local de coleta não declara o estado")
+
+
+# --------------------------------------------------------------------
 # Contraste dos tokens de texto (WCAG AA = 4,5:1)
 # --------------------------------------------------------------------
 def _lum(hexa):
@@ -348,6 +400,7 @@ def main():
     valida_instituicoes(dados)
     valida_artefatos(dados)
     valida_sitios_na_malha(dados)
+    valida_procedencia(dados)
     valida_contraste()
 
     print()

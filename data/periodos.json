@@ -1,5 +1,5 @@
 {
-  "versao": "2026.09.3",
+  "versao": "2026.09.15",
   "data": "2026-09-17",
   "licenca": "CC BY 4.0",
   "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
@@ -29,7 +29,7 @@
       "inicio_ma": 298.9,
       "fim_ma": 251.9,
       "cor": "#F04028",
-      "total_registros": 3
+      "total_registros": 33
     },
     {
       "chave": "triassico",
@@ -38,7 +38,7 @@
       "inicio_ma": 251.9,
       "fim_ma": 201.4,
       "cor": "#812B92",
-      "total_registros": 12
+      "total_registros": 63
     },
     {
       "chave": "jurassico",
@@ -83,7 +83,7 @@
       "inicio_ma": 2.58,
       "fim_ma": 0,
       "cor": "#F9F97F",
-      "total_registros": 0
+      "total_registros": 58
     }
   ],
   "biozonas": [
@@ -92,35 +92,35 @@
       "nome": "Fauna da Fm. Sanga do Cabral",
       "ordem": 1,
       "idade": "Triássico Inferior (Induano–Olenekiano)",
-      "total_registros": 0
+      "total_registros": 7
     },
     {
       "chave": "az_dinodontosaurus",
       "nome": "Zona de Assembleia de Dinodontosaurus",
       "ordem": 2,
       "idade": "Triássico Médio (Ladiniano)",
-      "total_registros": 0
+      "total_registros": 7
     },
     {
       "chave": "az_santacruzodon",
       "nome": "Zona de Assembleia de Santacruzodon",
       "ordem": 3,
       "idade": "Triássico Médio–Superior (Ladiniano–Carniano)",
-      "total_registros": 0
+      "total_registros": 4
     },
     {
       "chave": "az_hyperodapedon",
       "nome": "Zona de Assembleia de Hyperodapedon",
       "ordem": 4,
       "idade": "Triássico Superior (Carniano)",
-      "total_registros": 5
+      "total_registros": 24
     },
     {
       "chave": "az_riograndia",
       "nome": "Zona de Assembleia de Riograndia",
       "ordem": 5,
       "idade": "Triássico Superior (Noriano)",
-      "total_registros": 7
+      "total_registros": 17
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "versao": "2026.09.3",
+  "versao": "2026.09.15",
   "data": "2026-09-17",
   "licenca": "CC BY 4.0",
   "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
@@ -33,7 +33,7 @@
       "municipio": "São João do Polêsine",
       "lat": -29.6311,
       "lon": -53.4506,
-      "count": 1,
+      "count": 2,
       "coord_precisao": "publicada"
     },
     {
@@ -65,7 +65,327 @@
       "municipio": "Faxinal do Soturno",
       "lat": -29.5789,
       "lon": -53.4436,
+      "count": 10,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Afloramento Schoenstatt",
+      "municipio": "Santa Cruz do Sul",
+      "lat": -29.7175,
+      "lon": -52.4258,
       "count": 4,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Chiniquá — Weg Sanga",
+      "municipio": "São Pedro do Sul",
+      "lat": -29.6217,
+      "lon": -54.1783,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Chiniquá — Tree Sanga",
+      "municipio": "São Pedro do Sul",
+      "lat": -29.6558,
+      "lon": -54.4272,
+      "count": 1,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Arroio Touro Passo (localidade indeterminada)",
+      "municipio": "Uruguaiana",
+      "lat": -29.6708,
+      "lon": -56.8637,
+      "count": 21,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Arroio Touro Passo — Barranca Grande",
+      "municipio": "Uruguaiana",
+      "lat": -29.6765,
+      "lon": -56.862,
+      "count": 1,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Arroio Touro Passo — Ponte Velha I",
+      "municipio": "Uruguaiana",
+      "lat": -29.6656,
+      "lon": -56.8699,
+      "count": 1,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Arroio Touro Passo — Myocastor",
+      "municipio": "Uruguaiana",
+      "lat": -29.6804,
+      "lon": -56.8394,
+      "count": 1,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Barrancas do arroio Chuí",
+      "municipio": "Santa Vitória do Palmar",
+      "lat": -33.5821,
+      "lon": -53.4455,
+      "count": 29,
+      "coord_precisao": "aproximada"
+    },
+    {
+      "nome": "Afloramento Quitéria",
+      "municipio": "Encruzilhada do Sul",
+      "lat": -30.5439,
+      "lon": -52.5219,
+      "count": 6,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Mina do Faxinal",
+      "municipio": "Arroio dos Ratos",
+      "lat": -30.0781,
+      "lon": -51.7278,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Paleovale Mariana Pimentel",
+      "municipio": "Mariana Pimentel",
+      "lat": -30.3411,
+      "lon": -51.5747,
+      "count": 6,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "BR-153 km 665,4 (localidade-tipo de Provelosaurus)",
+      "municipio": "Aceguá",
+      "lat": -31.8656,
+      "lon": -54.1614,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "BR-153 km 666",
+      "municipio": "Aceguá",
+      "lat": -31.8656,
+      "lon": -54.1614,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Fazenda Santo Antônio",
+      "municipio": "Aceguá",
+      "lat": -31.8656,
+      "lon": -54.1614,
+      "count": 4,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Fazenda Coxilha Grande",
+      "municipio": "Aceguá",
+      "lat": -31.8656,
+      "lon": -54.1614,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "BR-153 km 659,5",
+      "municipio": "Aceguá",
+      "lat": -31.8656,
+      "lon": -54.1614,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Fazenda Capão Alto",
+      "municipio": "São Gabriel",
+      "lat": -30.3369,
+      "lon": -54.32,
+      "count": 3,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Posto Queimado (Fazenda Modesto S. Fagundes)",
+      "municipio": "São Gabriel",
+      "lat": -30.3369,
+      "lon": -54.32,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Coprolândia",
+      "municipio": "São Gabriel",
+      "lat": -30.3369,
+      "lon": -54.32,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Bica São Tomé",
+      "municipio": "São Francisco de Assis",
+      "lat": -29.6156,
+      "lon": -55.0528,
+      "count": 7,
+      "coord_precisao": "publicada"
+    },
+    {
+      "nome": "Afloramento Faixa Nova–Cerrito I",
+      "municipio": "Santa Maria",
+      "lat": -29.6842,
+      "lon": -53.8069,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Sítio Botucaraí",
+      "municipio": "Candelária",
+      "lat": -29.6667,
+      "lon": -52.7833,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Várzea do Agudo",
+      "municipio": "Agudo",
+      "lat": -29.6447,
+      "lon": -53.2503,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Afloramentos da região de Vale do Sol",
+      "municipio": "Vale do Sol",
+      "lat": -29.5806,
+      "lon": -52.6842,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Paleotocas da Região Metropolitana de Porto Alegre",
+      "municipio": "Porto Alegre",
+      "lat": -30.0346,
+      "lon": -51.2177,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Paleotocas de Novo Hamburgo",
+      "municipio": "Novo Hamburgo",
+      "lat": -29.6783,
+      "lon": -51.1306,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Paleotocas da BR-116 — Guaíba",
+      "municipio": "Guaíba",
+      "lat": -30.1139,
+      "lon": -51.325,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Paleotocas da BR-116 — Tapes",
+      "municipio": "Tapes",
+      "lat": -30.6733,
+      "lon": -51.3961,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Jardim Paleobotânico de Mata",
+      "municipio": "Mata",
+      "lat": -29.5647,
+      "lon": -54.4614,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Afloramento Piscina",
+      "municipio": "São Pedro do Sul",
+      "lat": -29.6217,
+      "lon": -54.1783,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Depressão Periférica — flora Dicroidium",
+      "municipio": "Santa Maria",
+      "lat": -29.6842,
+      "lon": -53.8069,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Geossítio Janner",
+      "municipio": "Agudo",
+      "lat": -29.6447,
+      "lon": -53.2503,
+      "count": 5,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Sítio Wachholz",
+      "municipio": "Agudo",
+      "lat": -29.6447,
+      "lon": -53.2503,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Sítio Paleontológico Buriol",
+      "municipio": "São João do Polêsine",
+      "lat": -29.6167,
+      "lon": -53.4333,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Sítio Paleontológico Pivetta",
+      "municipio": "São João do Polêsine",
+      "lat": -29.6167,
+      "lon": -53.4333,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Sítio Paleontológico Piche",
+      "municipio": "São João do Polêsine",
+      "lat": -29.6167,
+      "lon": -53.4333,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Estrada de Vale Vêneto",
+      "municipio": "São João do Polêsine",
+      "lat": -29.6167,
+      "lon": -53.4333,
+      "count": 1,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Sítio Fogliarini/Posto",
+      "municipio": "Dona Francisca",
+      "lat": -29.6217,
+      "lon": -53.3617,
+      "count": 4,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Sítio Paleontológico Niemeyer",
+      "municipio": "Agudo",
+      "lat": -29.6447,
+      "lon": -53.2503,
+      "count": 2,
+      "coord_precisao": "regional"
+    },
+    {
+      "nome": "Sítio Paleontológico Aserma",
+      "municipio": "Agudo",
+      "lat": -29.6447,
+      "lon": -53.2503,
+      "count": 2,
       "coord_precisao": "regional"
     }
   ]

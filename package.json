@@ -5,7 +5,8 @@
   "description": "Banco de Dados Paleontológico do Rio Grande do Sul",
   "license": "MIT",
   "scripts": {
-    "build": "python3 scripts/exportar-dados.py && python3 scripts/exportar-planilha.py && python3 scripts/gerar-previa.py",
+    "sitios": "python3 scripts/sincronizar-sitios.py",
+    "build": "python3 scripts/sincronizar-sitios.py && python3 scripts/exportar-dados.py && python3 scripts/exportar-planilha.py && python3 scripts/gerar-previa.py",
     "validar": "python3 scripts/validar.py",
     "testar": "node scripts/testar.js",
     "telas": "node scripts/tirar-telas.js",

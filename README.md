@@ -13,7 +13,10 @@ js/dados.js           FONTE ÚNICA DE DADOS — o único arquivo editável à m�
 js/app.js             só código: filtros, ficha, permalink, exportações
 imgs/logo-vet.svg     marca; origem das cores da interface
 scripts/ler_dados.py  ponte que lê dados.js via Node
-scripts/validar.py    10 regras de validação
+scripts/sincronizar-sitios.py  reconstrói DB_SITIOS a partir dos registros
+scripts/validar.py    12 regras de validação
+scripts/testar.js     testes de DOM num navegador headless
+scripts/tirar-telas.js         capturas de tela das seis abas
 scripts/exportar-dados.py     → data/*.json
 scripts/exportar-planilha.py  → planilha.xlsx
 scripts/gerar-previa.py       → previa.html (arquivo único, sem servidor)
@@ -49,6 +52,7 @@ próxima exportação sobrescreve e o validador acusa a divergência antes disso
 ```bash
 pip install openpyxl
 
+python3 scripts/sincronizar-sitios.py  # DB_SITIOS a partir dos registros
 python3 scripts/validar.py            # sai com 1 se houver erro
 python3 scripts/exportar-dados.py     # regenera data/*.json
 python3 scripts/exportar-planilha.py  # regenera planilha.xlsx
@@ -71,6 +75,8 @@ cada push e barra commit com artefato desatualizado.
 | 8 | Todo registro tem `tipo_fonte` da lista fechada |
 | 9 | `data/*.json` em dia com `dados.js`, e sem BOM |
 | 10 | Tokens de texto do CSS com contraste ≥ 4,5:1 (WCAG AA) |
+| 11 | Todo sítio cai dentro do polígono do município que declara |
+| 12 | **Procedência**: município existe no RS, coordenada cai dentro dele, local de coleta declara o estado |
 
 ## Licenças
 

@@ -1,5 +1,5 @@
 {
-  "versao": "2026.09.3",
+  "versao": "2026.09.15",
   "data": "2026-09-17",
   "licenca": "CC BY 4.0",
   "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
@@ -26,13 +26,31 @@
       "descricao": "Do glacial ao continental árido. Flora Glossopteris, mesossauros e tetrápodes permianos. Ainda sem registros no banco."
     },
     {
-      "nome": "Bacia de Pelotas e planície costeira",
-      "idade": "Neógeno a Quaternário",
+      "nome": "Escudo Sul-rio-grandense e depósitos cenozoicos associados",
+      "idade": "Plioceno a Pleistoceno",
       "unidades": [
-        "Barreiras Múltiplas",
+        "Paleotocas (icnofósseis intrusivos)"
+      ],
+      "descricao": "As paleotocas não são uma unidade estratigráfica: são túneis escavados por xenartros da megafauna em rochas de idades muito diversas. Entram aqui porque a estrutura, e não a rocha que a contém, é o fóssil. A Região Metropolitana de Porto Alegre concentra a maior densidade conhecida no mundo."
+    },
+    {
+      "nome": "Depósitos fluviais quaternários da bacia do rio Uruguai",
+      "idade": "Pleistoceno Superior",
+      "unidades": [
+        "Fm. Touro Passo"
+      ],
+      "descricao": "Cascalhos, siltes e areias fluviais assentados sobre os basaltos da Fm. Serra Geral, no oeste do estado. Guardam a megafauna do arroio Touro Passo, em Uruguaiana — a associação pleistocênica mais bem estudada do sul do Brasil."
+    },
+    {
+      "nome": "Bacia de Pelotas e planície costeira",
+      "idade": "Pleistoceno Médio a Holoceno",
+      "unidades": [
+        "Alofm. Santa Vitória",
+        "Sistema Laguna-Barreira III",
+        "Fm. Cordão",
         "Depósitos da plataforma continental"
       ],
-      "descricao": "Megafauna pleistocênica do Arroio Touro Passo, Santa Vitória do Palmar e material dragado da plataforma. Ainda sem registros no banco."
+      "descricao": "Barreiras e sistemas lagunares do litoral gaúcho. Guardam a Fauna Local do Arroio Chuí, em Santa Vitória do Palmar, e o material dragado da plataforma continental, ainda não catalogado aqui."
     }
   ]
 }

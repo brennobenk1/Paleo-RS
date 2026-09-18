@@ -13,9 +13,9 @@ setTimeout(() => {
   // abas
   ok(d.querySelectorAll("#abas a").length === 6, "seis abas no menu");
   ok(!d.querySelector("#p-inicio").hidden && d.querySelector("#p-mapa").hidden, "abre no Início com as outras ocultas");
-  ok(d.querySelector("#h-registros").textContent === "15", `placar de registros: ${d.querySelector("#h-registros").textContent}`);
-  ok(d.querySelector("#h-sitios").textContent === "8", `sítios: ${d.querySelector("#h-sitios").textContent}`);
-  ok(d.querySelector("#h-municipios").textContent === "6", `municípios: ${d.querySelector("#h-municipios").textContent}`);
+  ok(d.querySelector("#h-registros").textContent === "154", `placar de registros: ${d.querySelector("#h-registros").textContent}`);
+  ok(d.querySelector("#h-sitios").textContent === "48", `sítios: ${d.querySelector("#h-sitios").textContent}`);
+  ok(d.querySelector("#h-municipios").textContent === "23", `municípios: ${d.querySelector("#h-municipios").textContent}`);
   ok(d.querySelector("#c-malha").textContent === "496", `malha: ${d.querySelector("#c-malha").textContent} municípios`);
 
   // navegar para o mapa
@@ -23,8 +23,8 @@ setTimeout(() => {
   ok(!d.querySelector("#p-mapa").hidden && d.querySelector("#p-inicio").hidden, "aba Mapa troca o painel");
   ok(window.location.hash === "#/mapa", `hash da aba: ${window.location.hash}`);
   ok(d.querySelectorAll("#mapa path.mun").length === 496, `polígonos municipais: ${d.querySelectorAll("#mapa path.mun").length}`);
-  ok(d.querySelectorAll("#mapa path.mun.com-registro").length === 6, `municípios destacados: ${d.querySelectorAll("#mapa path.mun.com-registro").length}`);
-  ok(d.querySelectorAll("#mapa circle.sitio").length === 8, `círculos de sítio: ${d.querySelectorAll("#mapa circle.sitio").length}`);
+  ok(d.querySelectorAll("#mapa path.mun.com-registro").length === 23, `municípios destacados: ${d.querySelectorAll("#mapa path.mun.com-registro").length}`);
+  ok(d.querySelectorAll("#mapa circle.sitio").length === 48, `círculos de sítio: ${d.querySelectorAll("#mapa circle.sitio").length}`);
   // nenhum sítio coberto por outro
   const cs = Array.from(d.querySelectorAll("#mapa circle.sitio")).map(c => ({x:+c.getAttribute("cx"),y:+c.getAttribute("cy"),r:+c.getAttribute("r")}));
   let cobertos = 0;
@@ -33,7 +33,7 @@ setTimeout(() => {
     if (dd + cs[i].r <= cs[j].r) cobertos++;
   }
   ok(cobertos === 0, `sítios inteiramente cobertos por vizinho: ${cobertos}`);
-  ok(d.querySelectorAll("#mapa circle.sitio[tabindex]").length === 8, "sítios alcançáveis por teclado");
+  ok(d.querySelectorAll("#mapa circle.sitio[tabindex]").length === 48, "sítios alcançáveis por teclado");
   clique(d.querySelector('#mapa circle.sitio[data-sitio="Fazenda Boqueirão"]'));
   ok(/Boqueirão/.test(d.querySelector("#sitio-detalhe").textContent), "painel lateral mostra o sítio clicado");
   ok(/Pampaphoneus/.test(d.querySelector("#sitio-detalhe").textContent), "lista os táxons do sítio");
@@ -48,14 +48,25 @@ setTimeout(() => {
 
   // instituições
   clique(d.querySelector('#abas a[data-aba="instituicoes"]'));
-  ok(d.querySelectorAll(".inst").length === 12, `fichas de instituição: ${d.querySelectorAll(".inst").length}`);
+  ok(d.querySelectorAll(".inst").length === 20, `fichas de instituição: ${d.querySelectorAll(".inst").length}`);
 
   // catálogo + filtro
   clique(d.querySelector('#abas a[data-aba="catalogo"]'));
-  ok(d.querySelectorAll(".cartao").length === 15, `cartões: ${d.querySelectorAll(".cartao").length}`);
+  ok(d.querySelectorAll(".cartao").length === 154, `catálogo inteiro renderizado sem paginação: ${d.querySelectorAll(".cartao").length}`);
+  ok(d.querySelectorAll(".fita").length === 3, `fitas de período: ${d.querySelectorAll(".fita").length} (só períodos com registro)`);
+  const fitaPerm = Array.from(d.querySelectorAll(".fita")).find(f => f.dataset.periodo === "permiano");
+  clique(fitaPerm);
+  ok(d.querySelector("#contagem").textContent === "33 de 154 registros", `fita do Permiano filtra: ${d.querySelector("#contagem").textContent}`);
+  ok(fitaPerm.getAttribute("aria-pressed") === "true", "fita ativa fica marcada");
+  clique(fitaPerm);
+  /* A contagem é síncrona; os cartões entram em fatias por quadro de
+     animação, então contar o DOM logo após o clique mediria a primeira
+     fatia, não o resultado do filtro. */
+  ok(d.querySelector("#contagem").textContent === "154 registros", `clicar de novo na fita limpa o filtro: ${d.querySelector("#contagem").textContent}`);
+  ok(!!d.querySelector("#ao-topo"), "botão de voltar ao topo existe");
   const sel = d.querySelector("#f-periodo");
   sel.value = "permiano"; sel.dispatchEvent(new window.Event("change"));
-  ok(d.querySelectorAll(".cartao").length === 3, `filtro Permiano: ${d.querySelectorAll(".cartao").length} (esperado 3)`);
+  ok(d.querySelector("#contagem").textContent === "33 de 154 registros", `filtro Permiano pelo select: ${d.querySelector("#contagem").textContent}`);
   ok(/periodo=permiano/.test(window.location.hash), `permalink com filtro: ${window.location.hash}`);
   clique(d.querySelector("#limpar"));
 
@@ -72,7 +83,7 @@ setTimeout(() => {
   ok(!d.querySelector("#modal-citar").hidden, "modal Como citar abre");
   const abnt = d.querySelector("#citacao-texto").textContent;
   ok(/^BENK, Brenno Alef\./.test(abnt), `ABNT começa pela autoria: ${abnt.slice(0,40)}…`);
-  ok(/Versão 2026\.09\.3/.test(abnt), "ABNT traz a versão do banco");
+  ok(/Versão 2026\.09\.15/.test(abnt), "ABNT traz a versão do banco");
   ok(/Acesso em: \d+ \w+\.? \d{4}/.test(abnt), "ABNT traz data de acesso automática");
   clique(d.querySelector('.guia[data-norma="apa"]'));
   ok(/^Benk, B\. A\. \(2026\)/.test(d.querySelector("#citacao-texto").textContent), "APA formata o nome de outro jeito");

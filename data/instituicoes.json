@@ -1,5 +1,5 @@
 {
-  "versao": "2026.09.3",
+  "versao": "2026.09.15",
   "data": "2026-09-17",
   "licenca": "CC BY 4.0",
   "aviso": "Artefato gerado por scripts/exportar-dados.py. Não edite: a fonte é js/dados.js.",
@@ -73,6 +73,62 @@
       "cidade": "São Gabriel, RS",
       "site": "https://unipampa.edu.br",
       "acervo": "Tetrápodes permianos da Fm. Rio do Rasto; guarda os holótipos de Rastodon procurvidens e o segundo crânio de Pampaphoneus biccai."
+    },
+    {
+      "sigla": "MGB",
+      "nome": "Museu Guido Borgomanero",
+      "cidade": "Mata, RS",
+      "site": "https://www.mata.rs.gov.br",
+      "acervo": "Museu municipal criado pela comunidade na década de 1980, dedicado à floresta petrificada do Arenito Mata."
+    },
+    {
+      "sigla": "MPAWI",
+      "nome": "Museu Paleontológico e Arqueológico Professor Walter Ilha",
+      "cidade": "São Pedro do Sul, RS",
+      "site": "https://www.saopedrodosul.rs.gov.br",
+      "acervo": "Museu municipal fundado por Walter Ilha; lenhos silicificados do Arenito Mata e material arqueológico."
+    },
+    {
+      "sigla": "MVP",
+      "nome": "Museu de Ciências Naturais Vicente Pallotti",
+      "cidade": "Santa Maria, RS",
+      "site": "https://www.pallotti.com.br",
+      "acervo": "Coleções de flora e fauna fósseis da região central do estado, na Escola Patronato Agrícola Antônio Alves Ramos."
+    },
+    {
+      "sigla": "MMACR",
+      "nome": "Museu Municipal Aristides Carlos Rodrigues",
+      "cidade": "Candelária, RS",
+      "site": "https://www.candelaria.rs.gov.br",
+      "acervo": "Museu municipal da Quarta Colônia; guarda o holótipo do cinodonte Botucaraitherium belarminoi, do Sítio Botucaraí."
+    },
+    {
+      "sigla": "MCTFM",
+      "nome": "Museu Coronel Tancredo Fernandes de Mello",
+      "cidade": "Santa Vitória do Palmar, RS",
+      "site": "https://www.svpalmar.rs.gov.br",
+      "acervo": "Principal acervo da megafauna do arroio Chuí; inclui a Coleção Emidio Pinto Martino (EPM). Museu municipal no extremo sul do estado."
+    },
+    {
+      "sigla": "FURG",
+      "nome": "Universidade Federal do Rio Grande — Laboratório de Geologia e Paleontologia",
+      "cidade": "Rio Grande, RS",
+      "site": "https://www.furg.br",
+      "acervo": "Megafauna da planície costeira e material dragado da plataforma continental; série LGP."
+    },
+    {
+      "sigla": "SNSB-BSPG",
+      "nome": "Bayerische Staatssammlung für Paläontologie und Geologie",
+      "cidade": "Munique (Alemanha)",
+      "site": "https://www.snsb.mpg.de",
+      "acervo": "Guarda o material-tipo coletado por Friedrich von Huene no RS em 1928-29, incluindo Prestosuchus chiniquensis."
+    },
+    {
+      "sigla": "UFPI",
+      "nome": "Universidade Federal do Piauí — Campus Amílcar Ferreira Sobral",
+      "cidade": "Floriano, PI",
+      "site": "https://ufpi.br",
+      "acervo": "Coautoria em descrições de pseudossúquios triássicos gaúchos."
     },
     {
       "sigla": "MCN",
