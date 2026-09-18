@@ -1,8 +1,8 @@
 # Paleo-RS — Banco de Dados Paleontológico do Rio Grande do Sul
 
-Catálogo aberto de ocorrências fossilíferas **coletadas no Rio Grande do Sul**.
+[Catálogo aberto de ocorrências fossilíferas **coletadas no Rio Grande do Sul**.
 Aplicação estática: HTML5, CSS3 e JavaScript ES6+, sem framework, sem build,
-sem servidor. Abre direto do disco ou no GitHub Pages.
+sem servidor. Abre direto do disco ou no GitHub Pages.](https://brennobenk1.github.io/Paleo-RS/)
 
 ## Arquivos
 
